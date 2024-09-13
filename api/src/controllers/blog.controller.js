@@ -3,7 +3,6 @@ import { Blog } from "../models/blog.model.js";
 import { Like } from "../models/like.model.js";
 import { Comment } from "../models/comment.model.js";
 
-
 const postBlog = async(req,res) => {
     const { title, content, summary } = req.body;   
 
