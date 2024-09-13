@@ -334,6 +334,37 @@ const getAllUsers = async(req,res) => {
 
 }
 
+const getSingleUser = async(req,res) => {
+   try {
+     const { id } = req.params;
+ 
+     const user = await User.findById({
+         _id: id
+     });
+ 
+     if (!user) {
+         return res.status(404).json({
+             message: "User Not Found!",
+             status: 404
+         })
+     }
+ 
+     res.status(200).json({
+         message:"Single User Fetched Successfully!",
+         status: 200,
+         user,
+     })
+   } catch (error) {
+        return res.status(500).json({
+            message: "OOPS!! Something Went Wrong While fetching Users!!",
+            status: 500,
+            errorMessage: error.message,
+            error
+        })
+   }
+     
+}
+
 export {
     registerUser,
     loginUser,
@@ -341,5 +372,6 @@ export {
     updateUserInfo,
     updateAvatar,
     deleteUser,
-    getAllUsers
+    getAllUsers,
+    getSingleUser
 }
