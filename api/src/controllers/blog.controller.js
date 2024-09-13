@@ -1,3 +1,4 @@
+import mongoose from "mongoose";
 import { Blog } from "../models/blog.model.js";
 import { Like } from "../models/like.model.js";
 
@@ -226,7 +227,58 @@ const commentingBlog = async(req,res) => {
 }
 
 const getBlogLikes = async(req,res) => {
-
+    
+    try {
+        const { id } = req.params;
+    
+        const blog = await Blog.findById({
+            _id: id
+        })
+    
+        if (!blog) {
+            return res.status(404).json({
+                message:"Blog Not Found!",
+                status: 404
+            })
+        }
+    
+        const likes = await Like.aggregate([
+            {
+                $match: { blog:  new mongoose.Types.ObjectId(id) }
+            },
+            {
+                $lookup:{
+                  from: "users",
+                  localField:"likedBy",
+                  foreignField:"_id",
+                  as: "userDetails"
+                }
+            },
+            {
+                $project:{
+                    _id: 1,
+                    likeBy: 1,
+                    "userDetails.fullName": 1, // Select specific fields
+                    "userDetails.username": 1,
+                    "userDetails.avatar": 1,
+                }
+            }
+        ]);
+    
+        res.status(200).json({
+            message: "Blog Likes Fetched Successfully!",
+            status:200,
+            likes
+        })
+    
+    } catch (error) {
+        return res.status(500).json({
+            message: "OOPS!! Something Went Wrong While Fetching Blog Likes!!",
+            status: 500,
+            errorMessage: error.message,
+            error,
+          });
+    }
 }
 
 export {
