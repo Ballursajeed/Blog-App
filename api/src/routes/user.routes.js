@@ -1,5 +1,6 @@
 import { Router } from "express";
-import { loginUser, 
+import { deleteUser, 
+         loginUser, 
          logoutUser, 
          registerUser, 
          updateAvatar, 
@@ -27,5 +28,5 @@ router.route("/updateAvatar/:id").put(upload.fields([
         maxCount: 1
     }
 ]),validateUser,updateAvatar)
-
+router.route("/deleteUser/:id").delete(validateUser,deleteUser)
 export default router

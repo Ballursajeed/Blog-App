@@ -280,10 +280,33 @@ const updateAvatar = async(req,res) => {
    }
 }
 
+const deleteUser = async(req,res) => {
+   const { id } = req.params;
+
+   const user = await User.findByIdAndDelete({
+    _id:id
+   })
+ 
+    if (!user) {
+        return res.status(404).json({
+            message:"User Not Found!",
+            status: 404
+        })
+    }
+   
+    res.status(200).json({
+        message: "User Deleted Successfully!",
+        status: 200
+    })
+
+
+}
+
 export {
     registerUser,
     loginUser,
     logoutUser,
     updateUserInfo,
-    updateAvatar
+    updateAvatar,
+    deleteUser
 }
