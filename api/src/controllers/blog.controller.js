@@ -1,4 +1,5 @@
 import { Blog } from "../models/blog.model.js";
+import { Like } from "../models/like.model.js";
 
 
 const postBlog = async(req,res) => {
@@ -62,22 +63,23 @@ const getSingleBlog = async(req,res) => {
     try {
         const { id } = req.params;
     
-        if (!id) {
-            return res.status(400).json({
-                message:"Please Select the blog to open!",
-                status:400
-            })
-        }
-
         const blog = await Blog.findById({
             _id:id
         })
+
+        if (!blog) {
+            return res.status(404).json({
+                message:"Blog Not Found!",
+                status:404
+            })
+        }
     
         res.status(200).json({
             message: "Single Blog Fetched!",
             status: 200,
             blog
         })
+
     } catch (error) {
         return res.status(500).json({
             message: "OOPS!! Something Went Wrong While Fetching a Blog!!",
@@ -157,10 +159,83 @@ const deleteBlog = async(req,res) => {
 
 }
 
+const likingBlog = async(req,res) => {
+  
+    try {
+     
+        const { id } = req.params;
+        const userId = req.user?._id;
+
+        const blog = await Blog.findById({
+            _id: id
+        });
+
+        if (!blog) {
+            return res.status(404).json({
+                message: "Blog Not Found!",
+                status:404
+            })
+        }
+
+       
+    const existingLike = await Like.findOne({ likedBy: userId, blog: id });
+
+    if (existingLike) {
+    
+      await Like.findByIdAndDelete(existingLike._id);
+
+      blog.likes = blog.likes - 1;
+      await blog.save({ validateBeforeSave: true });
+
+      return res.status(200).json({
+        message: "Blog unliked successfully!",
+        status: 200,
+      });
+    } 
+        blog.likes = blog.likes + 1;
+        blog.save({validateBeforeSave: true})
+
+        console.log("userid: ",userId);
+        console.log("blogId: ",id);
+        
+
+        await Like.create({
+            likedBy: userId,
+            blog: id
+        })
+
+        res.status(200).json({
+            message: "Blog Liked Successfully!",
+            status: 200,
+            blog
+        })
+        
+    } catch (error) {
+        return res.status(500).json({
+            message: "OOPS!! Something Went Wrong While Liking a Blog!!",
+            status: 500,
+            errorMessage: error.message,
+            error
+         })
+    }
+
+}
+
+const commentingBlog = async(req,res) => {
+
+}
+
+const getBlogLikes = async(req,res) => {
+
+}
+
 export {
     postBlog,
     getAllBlogs,
     getSingleBlog,
     updateBlog,
-    deleteBlog
+    deleteBlog,
+    likingBlog,
+    commentingBlog,
+    getBlogLikes
 }

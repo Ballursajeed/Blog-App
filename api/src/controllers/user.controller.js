@@ -311,7 +311,6 @@ const deleteUser = async(req,res) => {
 
 }
 
-
 const getAllUsers = async(req,res) => {
     
    try {
