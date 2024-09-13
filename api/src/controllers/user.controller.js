@@ -147,8 +147,79 @@ const logoutUser = async(req,res) => {
 
 }
 
+const updateUserInfo = async(req,res) => {
+    try {
+        const { id } = req.params;
+        const { username, fullName, email } = req.body;
+    
+
+        if (!id) {
+           throw new Error("Something Went Wrong While Updating a User")
+        }
+
+        if (!username && !fullName && !email) {
+          return res.status(400).json({
+            message:"Please Update atleast One of these fields!",
+            status:400
+          })  
+        }
+    
+        const existedUserWithEmail = await User.findOne({email});
+        
+        if (existedUserWithEmail) {
+            return res.status(400).json({
+                message: "Email is already used by another user",
+                status: 400,
+             })
+        }
+    
+        const existedUserWithUsername = await User.findOne({username});
+        
+        if (existedUserWithUsername) {
+            return res.status(400).json({
+                message: "Username is already used by another user",
+                status: 400,
+             })
+        }
+         
+
+        await User.findByIdAndUpdate({
+            _id:id
+        },{
+            username,
+            fullName,
+            email,
+            
+        })
+
+        const updatedUser = await User.findById({_id:id})
+
+        res.status(200).json({
+            message: "User updated Successfully!",
+            status: 200,
+            updatedUser
+        })
+
+    } catch (error) {
+        return res.status(500).json({
+            message: "OOPS!! Something Went Wrong While updating a User!!",
+            status: 500,
+            errorMessage: error.message,
+            error
+         })
+    }
+
+
+}
+
+const updateAvatar = async(req,res) => {
+
+}
+
 export {
     registerUser,
     loginUser,
-    logoutUser
+    logoutUser,
+    updateUserInfo,
+    updateAvatar
 }
