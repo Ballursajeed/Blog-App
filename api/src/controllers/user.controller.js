@@ -153,8 +153,15 @@ const updateUserInfo = async(req,res) => {
         const { username, fullName, email } = req.body;
     
 
-        if (!id) {
-           throw new Error("Something Went Wrong While Updating a User")
+        const user = await User.findById({
+            _id:id
+        })
+    
+        if (!user) {
+            return res.status(404).json({
+                message:"User Not Found!",
+                status: 404
+            })
         }
 
         if (!username && !fullName && !email) {
@@ -214,6 +221,63 @@ const updateUserInfo = async(req,res) => {
 
 const updateAvatar = async(req,res) => {
 
+   try {
+     const { id } = req.params;
+ 
+     const user = await User.findById({
+         _id:id
+     })
+ 
+     if (!user) {
+         return res.status(404).json({
+             message:"User Not Found!",
+             status: 404
+         })
+     }
+    
+     const avatarLocalPath = req.files?.avatar[0]?.path;
+ 
+     if (!avatarLocalPath) {
+         return res.status(400).json({
+             message: "please upload image",
+             status: 400,
+          })
+     }
+ 
+     const avatar = await uploadOnCloudinary(avatarLocalPath);
+ 
+     if (!avatar) {
+         return res.status(500).json({
+             message: "Something Went wrong while uploading image, please try again later!",
+             status: 500,
+          })
+     }
+    
+     await User.findByIdAndUpdate({
+        _id:id
+    },{
+       avatar: avatar.url
+        
+    })
+
+     const updatedUserWithAvatar = await User.findById({
+         _id:id
+     })
+ 
+    res.status(200).json({
+     message: "Avatar Updated Successfully!",
+     status: 200,
+     updatedUserWithAvatar
+    })
+ 
+   } catch (error) {
+        return res.status(500).json({
+            message: "OOPS!! Something Went Wrong While updating a User!!",
+            status: 500,
+            errorMessage: error.message,
+            error
+        })
+   }
 }
 
 export {
