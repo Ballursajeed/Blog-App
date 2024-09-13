@@ -2,6 +2,7 @@ import { Router } from "express";
 import { commentingBlog, 
          deleteBlog, 
          getAllBlogs, 
+         getAllComments, 
          getBlogLikes, 
          getSingleBlog, 
          likingBlog, 
@@ -14,6 +15,7 @@ const router = Router()
 router.route("/getAllBlogs").get(validateUser,getAllBlogs)
 router.route("/getSingleBlog/:id").get(validateUser,getSingleBlog)
 router.route("/getBlogLikes/:id").get(validateUser,getBlogLikes)
+router.route("/getBlogComments/:id").get(validateUser,getAllComments)
 
 router.route("/post").post(validateUser,postBlog)
 router.route("/like/:id").post(validateUser,likingBlog)

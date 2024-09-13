@@ -265,6 +265,64 @@ const commentingBlog = async(req,res) => {
 
 }
 
+const getAllComments = async(req,res) => {
+   try {
+     const { id } = req.params;
+ 
+     const blog = await Blog.findById({
+         _id: id
+     })
+ 
+     if (!blog) {
+         return res.status(404).json({
+             message:"Blog Not Found!",
+             status: 404
+         })  
+       }
+ 
+       const comments = await Comment.aggregate([
+         {
+             $match: {
+                 blog: new mongoose.Types.ObjectId(id)
+             }
+         },
+         {
+             $lookup:{
+                 from: "users",
+                 localField:"owner",
+                 foreignField:"_id",
+                 as: "userDetails"
+             }
+         },
+
+         {
+             $project:{
+                 _id:1,
+                 owner: 1,
+                 content:1,
+                    "userDetails.fullName": 1, // Select specific fields
+                     "userDetails.username": 1,
+                     "userDetails.avatar": 1,
+                 }
+         }
+       ]);
+ 
+       res.status(200).json({
+         message: "Blog comments Fetched Successfully!",
+         status:200,
+         comments
+     })
+   } catch (error) {
+    return res.status(500).json({
+        message: "OOPS!! Something Went Wrong While Fetching Blog Comments!!",
+        status: 500,
+        errorMessage: error.message,
+        error,
+      });
+   }
+
+ }
+
 const getBlogLikes = async(req,res) => {
     
     try {
@@ -328,5 +386,6 @@ export {
     deleteBlog,
     likingBlog,
     commentingBlog,
-    getBlogLikes
+    getBlogLikes,
+    getAllComments
 }
