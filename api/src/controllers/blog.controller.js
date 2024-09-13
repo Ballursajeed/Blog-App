@@ -1,6 +1,7 @@
 import mongoose from "mongoose";
 import { Blog } from "../models/blog.model.js";
 import { Like } from "../models/like.model.js";
+import { Comment } from "../models/comment.model.js";
 
 
 const postBlog = async(req,res) => {
@@ -195,11 +196,7 @@ const likingBlog = async(req,res) => {
     } 
         blog.likes = blog.likes + 1;
         blog.save({validateBeforeSave: true})
-
-        console.log("userid: ",userId);
-        console.log("blogId: ",id);
         
-
         await Like.create({
             likedBy: userId,
             blog: id
@@ -223,6 +220,48 @@ const likingBlog = async(req,res) => {
 }
 
 const commentingBlog = async(req,res) => {
+    try {
+        
+        const { id } = req.params;
+        const { content } = req.body;
+    
+        const blog = await Blog.findById({
+            _id: id
+        })
+    
+        if (!content) {
+            return res.status(400).json({
+                message:"Please fill the comment!",
+                status: 400
+            })
+        }
+
+        if (!blog) {
+            return res.status(404).json({
+                message:"Blog Not Found!",
+                status: 404
+            })
+        }
+    
+       const comment = await Comment.create({
+              content,
+               blog: blog._id,
+               owner: req.user?._id
+        })
+    
+        res.status(201).json({
+            message: "Comment added Successfully!",
+            status: 201,
+            comment,
+        })
+    } catch (error) {
+        return res.status(500).json({
+            message: "OOPS!! Something Went Wrong While Commenting on a Blog!!",
+            status: 500,
+            errorMessage: error.message,
+            error
+         })
+    }
 
 }
 
