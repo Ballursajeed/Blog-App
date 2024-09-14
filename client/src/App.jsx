@@ -7,7 +7,6 @@ import { Route,  Routes } from "react-router-dom";
 import Login from "./components/Login";
 import { useNavigate } from "react-router-dom";
 import Blog from "./components/Blog";
-import Logout from "./components/Logout";
 
 function App() {
 
@@ -33,7 +32,7 @@ function App() {
                   user:response.data.user,
                   token: response.data.refreshToken
                  }))
-         navigate("/blog")
+          navigate("/blog")
 
               }
              
@@ -67,9 +66,8 @@ function App() {
         ) : (
           <>
             <Routes>
-              <Route path="/register" element={<Register />}/>
+              <Route path="/" element={<Register />}/>
               <Route path="/login" element={<Login />}/>
-              <Route path="/logout" element={<Logout />}/>
               <Route path="/blog" element={<Blog />}/>
             </Routes>
           </>
