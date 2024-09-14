@@ -7,6 +7,7 @@ import { Route,  Routes } from "react-router-dom";
 import Login from "./components/Login";
 import { useNavigate } from "react-router-dom";
 import Blog from "./components/Blog";
+import { SERVER } from "./constants/constants";
 
 function App() {
 
@@ -17,25 +18,24 @@ function App() {
   const navigate = useNavigate()
 
   useEffect(() => {
+
     const fetchUserDetails = async () => {
 
           try {
-              const response = await axios.get('http://localhost:3000/api/v1/user/me', {
+              const response = await axios.get(`${SERVER}/user/me`, {
                   withCredentials: true
               });
               setIsLoggedIn(true);
 
               if (response.data.status === 200) {
                 dispatch(loginSuccess({
-                  user:response.data.user,
-                  token: response.data.refreshToken
+                  user:response.data?.user,
+                  token: response.data?.user?.refreshToken
                  }))
           navigate("/blog")
 
               }
              
-          
-         
           } catch (error) {
               console.error('Failed to fetch user details:', error);
               setIsLoggedIn(false);
@@ -44,18 +44,14 @@ function App() {
     
       setLoading(false);
   };
-
   fetchUserDetails();
-
   },[])
-  
 
   useEffect(() => {
     if (isLoggedIn) {
       navigate("/blog");
     }
   }, [isLoggedIn, navigate])
-
 
   return (
     <>
