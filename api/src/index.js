@@ -2,6 +2,7 @@ import express from "express";
 import dotenv from "dotenv";
 import { connectDB } from "./db/index.db.js";
 import cookieParser from "cookie-parser";
+import cors from "cors";
 
 dotenv.config()
 
@@ -11,7 +12,12 @@ const app = express()
 const port = process.env.PORT || 3000;
 
 app.use(express.json())
-app.use(cors());
+app.use(cors(
+    {
+        origin: 'http://localhost:5173', // Replace with your React app's URL
+        credentials: true,
+    }
+));
 app.use(express.urlencoded({ extended: true, limit: "16kb" }))
 app.use(express.static('public'))
 app.use(cookieParser())

@@ -21,30 +21,21 @@ const registerUser = async(req,res) => {
              })
         }
 
-        const avatarLocalPath = req.files?.avatar[0]?.path;
 
-        if (!avatarLocalPath) {
-            return res.status(400).json({
-                message: "please upload image",
-                status: 400,
-             })
-        }
+        let avatarLocalPath;
 
-        const avatar = await uploadOnCloudinary(avatarLocalPath);
+        if (req.files && Array.isArray(req.files.avatar) && req.files.avatar.length > 0) {
+            avatarLocalPath = req.files.avatar[0].path;
+         }
 
-        if (!avatar) {
-            return res.status(500).json({
-                message: "Something Went wrong while uploading image, please try again later!",
-                status: 500,
-             })
-        }
+         const avatar = await uploadOnCloudinary(avatarLocalPath)
 
         const user = await User.create({
             email,
             fullName,
             username,
             password,
-            avatar: avatar.url
+            avatar: avatar?.url || ""
         })
     
         const createdUser = await User.findById(user._id).select(
