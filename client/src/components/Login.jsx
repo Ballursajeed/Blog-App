@@ -34,8 +34,6 @@ const Login = () => {
             
               navigate("/blog")
             console.log(res.data);
-            
-         
       
        } catch (error) {
         console.log(error?.response?.data);
@@ -68,8 +66,6 @@ const Login = () => {
                value={password}
                onChange={(e) => setPassword(e.target.value)}
         />
-
-    
 
         <button type='submit' className='btn'>Submit</button>
         <div>

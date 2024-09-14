@@ -25,8 +25,6 @@ function App() {
               });
               setIsLoggedIn(true);
 
-              console.log("res: ",response);
-              
               if (response.data.status === 200) {
                 dispatch(loginSuccess({
                   user:response.data.user,
@@ -52,9 +50,11 @@ function App() {
   },[])
   
 
-  if (isLoggedIn) {
-    navigate("/blog")
-  }
+  useEffect(() => {
+    if (isLoggedIn) {
+      navigate("/blog");
+    }
+  }, [isLoggedIn, navigate])
 
 
   return (
