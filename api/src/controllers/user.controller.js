@@ -334,7 +334,11 @@ const checkAuthAndUserDetails = async(req,res) => {
         if (!user) {
             return res.status(401).json({ message: "Not authenticated" });
         }
-        res.status(200).json({ user });
+        res.status(200).json({ 
+            message:"User Authenticated",
+            status: 200,
+            user
+         });
     } catch (error) {
         res.status(500).json({ message: "Server Error" });
     }
