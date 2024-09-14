@@ -16,13 +16,20 @@ const postBlog = async(req,res) => {
     
         const author = req.user;
     
+       
+
        const blog = await Blog.create({
             title,
             content,
             summary,
             author
         })
-    
+        
+       const blogs = author.blogs;
+       blogs.push(blog)
+       author.blogs = blogs;
+        author.save({validateBeforeSave: false})
+        
         res.status(201).json({
             message: "Blog Posted Successfully!",
             status:201,
@@ -30,7 +37,7 @@ const postBlog = async(req,res) => {
         })
     } catch (error) {
         return res.status(500).json({
-            message: "OOPS!! Something Went Wrong While Fetching a Blogs!!",
+            message: "OOPS!! Something Went Wrong While Posting a Blog!!",
             status: 500,
             errorMessage: error.message,
             error
@@ -377,6 +384,43 @@ const getBlogLikes = async(req,res) => {
     }
 }
 
+const getMyBlogs = async(req,res) => {
+   try {
+    const blogsIds  = req.user?.blogs
+ 
+    if (blogsIds.length === 0) {
+        return res.status(404).json({
+            message: "You don not Posted any Blogs!",
+            status: 404
+        })
+    }
+
+   const blogs = [];
+ 
+   for (let i = 0; i < blogsIds.length; i++) {
+      const id = blogsIds[i];
+      const blog = await Blog.findById({
+         _id: id
+      }) 
+     blogs.push(blog)    
+   }
+ 
+   res.status(200).json({
+     message:"Fetched User's Blogs!",
+     status: 200,
+     blogs
+   })
+   } catch (error) {
+        return res.status(500).json({
+        message: "OOPS!! Something Went Wrong While Fetching User's Blog!!",
+        status: 500,
+        errorMessage: error.message,
+        error,
+        });
+   }
+
+}
+
 export {
     postBlog,
     getAllBlogs,
@@ -386,5 +430,6 @@ export {
     likingBlog,
     commentingBlog,
     getBlogLikes,
-    getAllComments
+    getAllComments,
+    getMyBlogs
 }

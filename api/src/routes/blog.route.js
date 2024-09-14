@@ -4,6 +4,7 @@ import { commentingBlog,
          getAllBlogs, 
          getAllComments, 
          getBlogLikes, 
+         getMyBlogs, 
          getSingleBlog, 
          likingBlog, 
          postBlog, 
@@ -16,6 +17,7 @@ router.route("/getAllBlogs").get(validateUser,getAllBlogs)
 router.route("/getSingleBlog/:id").get(validateUser,getSingleBlog)
 router.route("/getBlogLikes/:id").get(validateUser,getBlogLikes)
 router.route("/getBlogComments/:id").get(validateUser,getAllComments)
+router.route("/getMyBlogs").get(validateUser,getMyBlogs)
 
 router.route("/post").post(validateUser,postBlog)
 router.route("/like/:id").post(validateUser,likingBlog)

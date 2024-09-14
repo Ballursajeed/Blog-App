@@ -29,7 +29,13 @@ const userSchema = new mongoose.Schema(
         },
         refreshToken: {
             type: String,
-        }
+        },
+        blogs:[
+            {
+                type: mongoose.Schema.Types.ObjectId,
+                ref: "Blog"
+            }
+        ],
     },
     {
         timestamps: true
