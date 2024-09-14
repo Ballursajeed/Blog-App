@@ -1,10 +1,11 @@
+import Register from "./components/Register"
 
 function App() {
 
   return (
     <>
       <h1>
-        hello blog
+        <Register />
       </h1>
     </>
   )
