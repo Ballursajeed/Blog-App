@@ -7,6 +7,7 @@ import { Route,  Routes } from "react-router-dom";
 import Login from "./components/Login";
 import { useNavigate } from "react-router-dom";
 import Blog from "./components/Blog";
+import Logout from "./components/Logout";
 
 function App() {
 
@@ -27,12 +28,16 @@ function App() {
 
               console.log("res: ",response);
               
-              dispatch(loginSuccess({
-                user:response.data.user,
-                token: response.data.refreshToken
-         }))
-          
+              if (response.data.status === 200) {
+                dispatch(loginSuccess({
+                  user:response.data.user,
+                  token: response.data.refreshToken
+                 }))
          navigate("/blog")
+
+              }
+             
+          
          
           } catch (error) {
               console.error('Failed to fetch user details:', error);
@@ -49,13 +54,7 @@ function App() {
   
 
   if (isLoggedIn) {
-    return (
-      <>
-       <Routes>
-          <Route path="/blog" element={<Blog />}/>
-        </Routes>
-      </>
-    )
+    navigate("/blog")
   }
 
 
@@ -68,8 +67,9 @@ function App() {
         ) : (
           <>
             <Routes>
-              <Route path="/" element={<Register />}/>
+              <Route path="/register" element={<Register />}/>
               <Route path="/login" element={<Login />}/>
+              <Route path="/logout" element={<Logout />}/>
               <Route path="/blog" element={<Blog />}/>
             </Routes>
           </>
