@@ -30,11 +30,21 @@ const Register = () => {
             }
          })
 
-      console.log(res);
+         console.log(res.data);
+         
+         if (res.data.status === 201) {
+            console.log(true);
+            const res = await axios.post(`${SERVER}/user/login`,{
+                username,
+                password
+            }, { withCredentials: true });
+
+            console.log(res.data);
+            
+         }
       
-    //   console.log(res.data);
        } catch (error) {
-        console.log(error);
+        console.log(error?.response?.data);
        }
         
     }
