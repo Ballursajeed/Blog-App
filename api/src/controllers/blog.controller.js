@@ -2,27 +2,39 @@ import mongoose from "mongoose";
 import { Blog } from "../models/blog.model.js";
 import { Like } from "../models/like.model.js";
 import { Comment } from "../models/comment.model.js";
+import { uploadOnCloudinary } from "../cloudinary/cloudinary.upload.js";
 
 const postBlog = async(req,res) => {
     const { title, content, summary } = req.body;   
 
     try {
+
+        console.log(title, content);
+        
+
         if (!title || !content) {
             return res.status(400).json({
                 message: "All fields are required!",
                 status: 400,
             })
         }
-    
-        const author = req.user;
-    
-       
+      
+        let imagePath;
 
+        if (req.files && Array.isArray(req.files.image) && req.files.image.length > 0) {
+            imagePath = req.files.image[0].path;
+         }
+
+         const image = await uploadOnCloudinary(imagePath)
+
+       const author = req.user;
+    
        const blog = await Blog.create({
             title,
             content,
             summary,
-            author
+            author,
+            image: image?.url || ""
         })
         
        const blogs = author.blogs;

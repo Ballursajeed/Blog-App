@@ -10,6 +10,7 @@ import { commentingBlog,
          postBlog, 
          updateBlog } from "../controllers/blog.controller.js";
 import { validateUser } from "../middleware/auth.middleware.js";
+import { upload } from "../middleware/multer.middlerware.js";
 
 const router = Router()
 
@@ -19,7 +20,13 @@ router.route("/getBlogLikes/:id").get(validateUser,getBlogLikes)
 router.route("/getBlogComments/:id").get(validateUser,getAllComments)
 router.route("/getMyBlogs").get(validateUser,getMyBlogs)
 
-router.route("/post").post(validateUser,postBlog)
+router.route("/post").post(validateUser,
+    upload.fields([
+    {
+        name:"image",
+        maxCount: 1
+    }
+]),postBlog)
 router.route("/like/:id").post(validateUser,likingBlog)
 router.route("/comment/:id").post(validateUser,commentingBlog)
 
