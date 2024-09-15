@@ -6,7 +6,7 @@ import axios from "axios";
 import { Route,  Routes } from "react-router-dom";
 import Login from "./components/Login";
 import { useNavigate } from "react-router-dom";
-import Blog from "./components/Blog";
+import Home from "./components/Home";
 import { SERVER } from "./constants/constants";
 
 function App() {
@@ -49,7 +49,7 @@ function App() {
 
   useEffect(() => {
     if (isLoggedIn) {
-      navigate("/blog");
+      navigate("/home");
     }
   }, [isLoggedIn, navigate])
 
@@ -64,7 +64,7 @@ function App() {
             <Routes>
               <Route path="/" element={<Register />}/>
               <Route path="/login" element={<Login />}/>
-              <Route path="/blog" element={<Blog />}/>
+              <Route path="/home" element={<Home />}/>
             </Routes>
           </>
         )

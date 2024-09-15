@@ -1,8 +1,8 @@
 import React, { useEffect, useState } from 'react';
 import { Link, useNavigate } from 'react-router-dom';
-import "../../styles/Navbar.css"; // Make sure to create a Navbar.css file for styling
+import "../styles/Navbar.css"; // Make sure to create a Navbar.css file for styling
 import axios from 'axios';
-import { SERVER } from '../../constants/constants';
+import { SERVER } from '../constants/constants';
 import { useSelector } from 'react-redux';
 
 
@@ -33,19 +33,28 @@ const Navbar = () => {
   return (
     <nav className="navbar">
       <div className="logo">
-        <Link to="/">MyBlog</Link>
+        <Link to="/">BLOGY</Link>
       </div>
       <ul className="nav-links">
         <li>
-          <Link to="/">Home</Link>
+          <Link to="/post-blog">
+           <button className='btn'> Create a Blog </button>
+          </Link>
         </li>
     
         <li>
-          <Link to="/blog">Blogs</Link>
+          <Link to="/my-blogs">
+           <button className='btn'>My Blogs</button>
+          </Link>
         </li>
-       
+        
         <li>
-          <button onClick={logoutHandler}>Logout</button>
+          <button className='btn' onClick={logoutHandler}>Logout</button>
+        </li>
+        <li>
+          <Link to="/profile">
+           <button className='avatar'>Profile</button>
+          </Link>
         </li>
       </ul>
     </nav>

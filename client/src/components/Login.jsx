@@ -32,7 +32,7 @@ const Login = () => {
                 }))
               }
             
-              navigate("/blog")
+              navigate("/home")
       
        } catch (error) {
         console.log(error?.response?.data);

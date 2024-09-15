@@ -54,7 +54,7 @@ const Register = () => {
                      token: res.data.refreshToken
               }))
             }
-            navigate("/blog")
+            navigate("/home")
             console.log(res.data);
             
          }
