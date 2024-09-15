@@ -25,9 +25,13 @@ const GetBlogs = () => {
 
   return (
     <>
-      <Blog />
-      <Blog />
-      <Blog />
+      {
+        blogs.map((blog,index) => {
+          return (
+            <Blog blog= {blog} key={index}/>
+          )
+        })
+      }
     </>
   )
 }

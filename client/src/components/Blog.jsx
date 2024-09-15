@@ -1,69 +1,88 @@
-import React, { useState } from 'react';
+import React, { useEffect, useState } from 'react';
 import "../styles/Blog.css"
 import { AiFillLike, AiFillDislike } from 'react-icons/ai';
+import axios from 'axios';
+import { SERVER } from '../constants/constants';
+import { Link } from 'react-router-dom';
 
 const Blog = ({
-
+  blog
 }) => {
 
     const [liked, setLiked] = useState(false);
+    const [likeCount,setLikeCount] = useState(blog.likes);
 
     const handleLikeUnlike = async () => {
  
-        // try {
-        //     const response = await fetch(
-        //         "https://www.greatfrontend.com/api/questions/like-button",
-        //         {
-        //             method: "POST",
-        //             headers: { "Content-Type": "application/json" },
-        //             body: JSON.stringify({
-        //                 action: liked ? "unlike" : "like",
-        //             }),
-        //         }
-        //     );
+            const response = await axios.post(`${SERVER}/blog/like/${blog._id}`,{},{
+                withCredentials:true
+            })
  
-        //     if (response.status >= 200 && response.status < 300) {
-        //         setLiked(!liked);
-        //     } else {
-        //         const res = await response.json();
-        //         setError(res.message);
-        //         return;
-        //     }
-        // }
-        setLiked(!liked)
+            if (response.data?.message === 'Blog unliked successfully!' ) {                    
+                setLikeCount((prev) => prev = prev - 1)
+            }
+
+             if (response.data?.message === 'Blog Liked Successfully!' ) {
+                 setLikeCount((prev) => prev = prev + 1)
+             }
+
+            if (response.data?.status >= 200 && response.status < 300) {
+                setLiked(!liked);
+            } 
+          console.log(response.data);
+          
     };
+
+    useEffect(() => {
+        
+      }, []);
+
+    const handleComment = async() => {
+        
+    }
+
+     const date = new Date(blog.createdAt)
+
+     const formatedDate = date.toLocaleString('en-GB', {
+            day: '2-digit',    
+            month: '2-digit',  
+            year: 'numeric'    
+     })
+
+ const weekday = date.toLocaleString('en-US',{
+    weekday: 'long'
+ }) 
 
   return (
     <>
       <div className='container'>
         <div className="card">
   <div className="card-img-holder">
-    <img src="https://images.unsplash.com/photo-1640102953836-5651f5d6b240?ixlib=rb-1.2.1&ixid=MnwxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8&auto=format&fit=crop&w=1024&q=80" alt="Blog image" />
+    <img src={blog.image} alt="Blog image" />
   </div>
-  <h3 className="blog-title">Learn Microinteraction</h3>
-  <span className="blog-time"> Monday Jan 20, 2020</span>
+  <h3 className="blog-title">{blog.title}</h3>
+  <span className="blog-time"> {weekday} {formatedDate}</span>
   <p className="description">
-    Lorem ipsum dolor sit amet, consectetur adipiscing elit. Etiam sagittis viverra turpis, non cursus ex accumsan at.
+   {blog.content}
   </p>
   <div className="options">
-    <span>
+    <Link className='read-blog' to="/single-blog">
       Read Full Blog
-    </span>
-    <button className="btn">Blog</button>
+    </Link>
   </div>
-  <div className="footer">
-         <button
-                onClick={handleLikeUnlike}
-                className={`likeBtn ${liked ? "liked" : ""}`}
-            >
-                {liked ? "Liked" : "Like"}
-            </button>
-  </div>
+         
+         <div className="social-icons">
+            <button className='likeCount'>{likeCount}</button>
+            <i
+              className={`fas fa-heart ${liked ? 'liked' : 'unliked'}`}
+              onClick={handleLikeUnlike}
+            ></i>
+           
+            <i className="fas fa-comment" 
+              onClick={handleComment} 
+            ></i>
+          </div>
 </div>
-
-
-
-
 
     </div>
     </>
