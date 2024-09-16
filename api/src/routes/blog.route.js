@@ -1,5 +1,6 @@
 import { Router } from "express";
-import { commentingBlog, 
+import { checkUserLikedBlog, 
+         commentingBlog, 
          deleteBlog, 
          getAllBlogs, 
          getAllComments, 
@@ -19,6 +20,7 @@ router.route("/getSingleBlog/:id").get(validateUser,getSingleBlog)
 router.route("/getBlogLikes/:id").get(validateUser,getBlogLikes)
 router.route("/getBlogComments/:id").get(validateUser,getAllComments)
 router.route("/getMyBlogs").get(validateUser,getMyBlogs)
+router.route("/like/status/:id").get(validateUser,checkUserLikedBlog)
 
 router.route("/post").post(validateUser,
     upload.fields([

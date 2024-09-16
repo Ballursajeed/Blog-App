@@ -3,6 +3,7 @@ import { Blog } from "../models/blog.model.js";
 import { Like } from "../models/like.model.js";
 import { Comment } from "../models/comment.model.js";
 import { uploadOnCloudinary } from "../cloudinary/cloudinary.upload.js";
+import { User } from "../models/user.model.js";
 
 const postBlog = async(req,res) => {
     const { title, content, summary } = req.body;   
@@ -61,12 +62,25 @@ const postBlog = async(req,res) => {
 const getAllBlogs = async(req,res) => {
     try {
         
-        const blogs = await Blog.find({});
+        const blogs = await Blog.find({}).lean();
+        
+        let blogsWithUser = []
+        for (let i = 0; i < blogs.length; i++) {
+            let blog = blogs[i];
+            let user = await User.findById({_id: blog.author});
 
+            blog.user = user;
+
+            blogsWithUser.push(blog);
+        }
+
+        console.log(blogsWithUser);
+        
+      
         res.status(200).json({
             message: "All Blogs are fetched!",
             status: 200,
-            blogs
+            blogs:blogsWithUser
         })
 
     } catch (error) {
@@ -215,7 +229,7 @@ const likingBlog = async(req,res) => {
         blog.likes = blog.likes + 1;
         blog.save({validateBeforeSave: true})
         
-        await Like.create({
+       const like = await Like.create({
             likedBy: userId,
             blog: id
         })
@@ -223,7 +237,8 @@ const likingBlog = async(req,res) => {
         res.status(200).json({
             message: "Blog Liked Successfully!",
             status: 200,
-            blog
+            blog,
+            like
         })
         
     } catch (error) {
@@ -234,6 +249,22 @@ const likingBlog = async(req,res) => {
             error
          })
     }
+
+}
+
+const checkUserLikedBlog = async(req,res) => {
+      const { blog } = req.params;
+
+      const like = await Like.findOne({
+        blog
+      })
+
+      console.log(like);
+      
+
+      if (like?.blog === blog) {
+        console.log("yes!!");
+      }
 
 }
 
@@ -443,5 +474,6 @@ export {
     commentingBlog,
     getBlogLikes,
     getAllComments,
-    getMyBlogs
+    getMyBlogs,
+    checkUserLikedBlog
 }
