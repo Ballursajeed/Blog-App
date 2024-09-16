@@ -12,6 +12,7 @@ import SingleBlog from "./components/SingleBlog";
 import MyBlog from "./components/MyBlog";
 import CreatePost from "./components/CreatePost";
 import Profile from "./components/Profile";
+import UpdateBlog from "./components/UpdateBlog";
 
 function App() {
 
@@ -68,6 +69,7 @@ function App() {
               <Route path="/my-blogs" element={<MyBlog  />}/>
               <Route path="/post-blog" element={<CreatePost />}/>
               <Route path="/profile" element={<Profile  />}/>
+              <Route path="/update-blog/:id" element={<UpdateBlog  />}/>
             </Routes>
           </>
         )

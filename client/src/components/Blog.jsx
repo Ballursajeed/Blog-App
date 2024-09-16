@@ -49,6 +49,14 @@ const Blog = ({
         
     }
 
+    const handleDelete = async() => {
+
+    }
+
+    const handleUpdate = async() => {
+           navigater(`/update-blog/${blog._id}`)
+    }
+
      const date = new Date(blog.createdAt)
 
      const formatedDate = date.toLocaleString('en-GB', {
@@ -57,12 +65,12 @@ const Blog = ({
             year: 'numeric'    
      })
 
- const weekday = date.toLocaleString('en-US',{
-    weekday: 'long'
- }) 
+      const weekday = date.toLocaleString('en-US',{
+          weekday: 'long'
+      }) 
 
 
- const admin = blog?.author === auth.user?._id;
+      const admin = blog?.author === auth.user?._id;
  
 
   return (
@@ -105,8 +113,8 @@ const Blog = ({
                admin ? 
                (
                 <div className="auth-btn">
-                <button className="edit"> Edit</button>
-                <button className="delete"> delete</button>
+                <button className="edit" onClick={handleUpdate}> Edit</button>
+                <button className="delete" onClick={handleDelete}> delete</button>
                </div>
                ) : (
                 <></>
