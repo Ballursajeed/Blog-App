@@ -1,4 +1,6 @@
+import mongoose from "mongoose";
 import { uploadOnCloudinary } from "../cloudinary/cloudinary.upload.js";
+import { Blog } from "../models/blog.model.js";
 import { User } from "../models/user.model.js";
 
 const registerUser = async(req,res) => {
@@ -288,6 +290,15 @@ const deleteUser = async(req,res) => {
               message:"User Not Found!",
               status: 404
           })
+      }
+
+     const blogs = await Blog.find({
+        author: new mongoose.Types.ObjectId(id)
+      })
+
+      for (let i = 0; i < blogs.length; i++) {
+        const blog = blogs[i];
+        await Blog.findByIdAndDelete({_id:blog?._id})
       }
      
       res.status(200).json({
