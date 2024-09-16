@@ -1,9 +1,8 @@
 import React, { useEffect, useState } from 'react';
 import "../styles/Blog.css"
-import { AiFillLike, AiFillDislike } from 'react-icons/ai';
 import axios from 'axios';
 import { SERVER } from '../constants/constants';
-import { Link } from 'react-router-dom';
+import { useNavigate } from 'react-router-dom';
 
 const Blog = ({
   blog
@@ -11,6 +10,8 @@ const Blog = ({
 
     const [liked, setLiked] = useState(false);
     const [likeCount,setLikeCount] = useState(blog.likes);
+
+    const navigater = useNavigate()
 
     const handleLikeUnlike = async () => {
  
@@ -32,6 +33,10 @@ const Blog = ({
           console.log(response.data);
           
     };
+
+    const navigateTo = () => {
+         navigater("/single-blog")
+    }
 
     useEffect(() => {
 
@@ -71,9 +76,9 @@ const Blog = ({
    {blog.content}
   </p>
   <div className="options">
-    <Link className='read-blog' to="/single-blog">
+    <span className='read-blog' onClick={navigateTo} >
       Read Full Blog
-    </Link>
+    </span>
     
   </div>
   
