@@ -50,7 +50,24 @@ const Blog = ({
     }
 
     const handleDelete = async() => {
-
+      const isDelete = window.prompt("Do you want to delete the blog? Type 'yes'");
+      if (isDelete === 'yes') { 
+        try {
+          const res = await axios.delete(`${SERVER}/blog/deleteBlog/${blog._id}`, {
+            withCredentials: true
+          });
+          
+          if (res.status === 200) {
+            console.log(res.data);
+            // Refresh the page after successful deletion
+            window.location.reload();
+          } else {
+            console.error("Failed to delete the blog");
+          }
+        } catch (error) {
+          console.error("Error deleting the blog:", error);
+        }
+      }
     }
 
     const handleUpdate = async() => {
