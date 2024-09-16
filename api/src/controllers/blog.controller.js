@@ -10,8 +10,6 @@ const postBlog = async(req,res) => {
 
     try {
 
-        console.log(title, content);
-        
 
         if (!title || !content) {
             return res.status(400).json({
