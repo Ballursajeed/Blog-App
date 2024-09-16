@@ -14,12 +14,13 @@ const MyBlog = () => {
             const res = await axios.get(`${SERVER}/blog/getMyBlogs`,{
                 withCredentials: true
               });
-              console.log(res.data.blogs);
               setBlogs(res.data.blogs)
         }
      getBlogs()
           
     },[])
+
+    
 
   return (
     <>
