@@ -58,7 +58,9 @@ const Navbar = () => {
         </li>
         <li>
           <Link to="/profile">
-           <button className='avatar'>Profile</button>
+           <button className='avatar'>
+            <img src={auth.user?.avatar ? auth.user.avatar : '/default-profile-image.webp'} alt='P' />
+           </button>
           </Link>
         </li>
       </ul>

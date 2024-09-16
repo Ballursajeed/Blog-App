@@ -30,6 +30,7 @@ const Login = () => {
                        user:res.data.user,
                        token: res.data.refreshToken
                 }))
+                
               }
             
               navigate("/home")
