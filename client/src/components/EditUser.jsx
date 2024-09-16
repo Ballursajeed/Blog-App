@@ -5,6 +5,7 @@ import { SERVER } from '../constants/constants';
 import { useDispatch } from 'react-redux';
 import {  useParams } from 'react-router-dom';
 import { useNavigate } from 'react-router-dom';
+import Navbar from './Navbar';
 
 const EditUser = () => {
 
@@ -36,30 +37,31 @@ const EditUser = () => {
         
     }
 
-    const handleUploadImage = async() => {
-        // try {
-        //     e.preventDefault()
-        //     const formData = new FormData();
-        //     formData.append("image",file)
+    const handleUploadImage = async(e) => {
+        try {
+            e.preventDefault()
+            const formData = new FormData();
+            formData.append("avatar",file)
 
-        //     const res = await axios.put(`${SERVER}/blog/updateImage/${id}`,formData,{
-        //       withCredentials: true,
-        //       headers: {
-        //         'Content-Type': 'multipart/form-data',
-        //     }
-        //     })
+            const res = await axios.put(`${SERVER}/user/updateAvatar/${id}`,formData,{
+              withCredentials: true,
+              headers: {
+                'Content-Type': 'multipart/form-data',
+            }
+            })
    
-        //     console.log("update Image: ",res.data);
+            console.log("update avatar: ",res.data);
           
-        //   } catch (error) {
-        //    console.log(error?.response?.data);
-        //   }
-        console.log("image upload!");
+          } catch (error) {
+           console.log(error?.response?.data);
+          }
+        console.log();
         
     }
  
   return (
     <div>
+        <Navbar />
      <div className="container">
      <h2>Update Account Details:</h2>
       <form action="" method='post' onSubmit={submitHandler}>
@@ -93,7 +95,7 @@ const EditUser = () => {
         <button type='submit' className='btn'>Submit</button>
       </form>
 
-      <label htmlFor='avatar'>Upload Image:</label>
+      <label htmlFor='avatar'>Update Profile Photo:</label>
         <input type="file"
                onChange={(e) => setFile(e.target.files[0])}  
                 />
