@@ -157,7 +157,7 @@ const updateBlog = async(req,res) => {
         res.status(200).json({
             message: "Blog Updated Successfully!",
             status: 200,
-            updateBlog,
+            updatedBlog,
         })
 
     } catch (error) {
