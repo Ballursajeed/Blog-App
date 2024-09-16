@@ -5,12 +5,22 @@ import { useSelector } from 'react-redux';
 import Blog from './Blog';
 import { SERVER } from '../constants/constants';
 import axios from 'axios';
+import { useNavigate } from 'react-router-dom';
 
 const Profile = () => {
 
     const auth = useSelector((state) => state.auth);
 
     const [blogs,setBlogs] = useState([]);
+    const navigate = useNavigate()
+
+    const handleDelete = async() => {
+
+    }
+
+    const handleEdit = async() => {
+         navigate(`/edit-profile:/${auth.user?._id}`)
+    } 
 
     useEffect(() => {
 
@@ -34,8 +44,8 @@ const Profile = () => {
           <h2 className="Profile-fullname">{auth.user.fullName}</h2>
           <p className="Profile-username">{auth.user.username}</p>
           <p className="Profile-blog">Blog Published:{auth.user?.blogs?.length}</p>
-          <button className='Profile-btn'>edit</button>
-          <button className='Profile-btn'>delete Profile</button>
+          <button className='Profile-btn' onClick={handleEdit}>edit</button>
+          <button className='Profile-btn' onClick={handleDelete}>delete Profile</button>
         </div>
           <div className="Profile-userblogs">
           <h2>Your Blogs:</h2>
