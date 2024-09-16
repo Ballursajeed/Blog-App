@@ -35,7 +35,7 @@ const Blog = ({
     };
 
     const navigateTo = () => {
-         navigater("/single-blog")
+         navigater(`/single-blog/${blog._id}`)
     }
 
     useEffect(() => {
