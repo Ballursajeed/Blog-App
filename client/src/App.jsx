@@ -8,6 +8,7 @@ import Login from "./components/Login";
 import { useNavigate } from "react-router-dom";
 import Home from "./components/Home";
 import { SERVER } from "./constants/constants";
+import SingleBlog from "./components/SingleBlog";
 
 function App() {
 
@@ -32,7 +33,7 @@ function App() {
                   user:response.data?.user,
                   token: response.data?.user?.refreshToken
                  }))
-          navigate("/blog")
+                // navigate("/home")
 
               }
              
@@ -47,11 +48,11 @@ function App() {
   fetchUserDetails();
   },[])
 
-  useEffect(() => {
-    if (isLoggedIn) {
-      navigate("/home");
-    }
-  }, [isLoggedIn, navigate])
+  // useEffect(() => {
+  //   if (isLoggedIn) {
+  //     navigate("/home");
+  //   }
+  // }, [isLoggedIn, navigate])
 
   return (
     <>
@@ -65,6 +66,7 @@ function App() {
               <Route path="/" element={<Register />}/>
               <Route path="/login" element={<Login />}/>
               <Route path="/home" element={<Home />}/>
+              <Route path="/single-blog" element={<SingleBlog />}/>
             </Routes>
           </>
         )
