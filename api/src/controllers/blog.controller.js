@@ -482,6 +482,66 @@ const getMyBlogs = async(req,res) => {
 
 }
 
+const updateBlogImage = async(req,res) => {
+    try {
+        const { id } = req.params;
+    
+        const blog = await Blog.findById({
+            _id:id
+        })
+    
+        if (!blog) {
+            return res.status(404).json({
+                message:"blog Not Found!",
+                status: 404
+            })
+        }
+       
+        const imageLocalPath = req.files?.image[0]?.path;
+    
+        if (!imageLocalPath) {
+            return res.status(400).json({
+                message: "please upload image",
+                status: 400,
+             })
+        }
+    
+        const image = await uploadOnCloudinary(imageLocalPath);
+    
+        if (!image) {
+            return res.status(500).json({
+                message: "Something Went wrong while uploading image, please try again later!",
+                status: 500,
+             })
+        }
+       
+        await Blog.findByIdAndUpdate({
+           _id:id
+       },{
+          image: image?.url
+           
+       })
+   
+        const updatedBlogWithImage = await Blog.findById({
+            _id:id
+        })
+    
+       res.status(200).json({
+        message: "Image Updated Successfully!",
+        status: 200,
+        updatedBlogWithImage
+       })
+    
+      } catch (error) {
+           return res.status(500).json({
+               message: "OOPS!! Something Went Wrong While updating a Blog!!",
+               status: 500,
+               errorMessage: error.message,
+               error
+           })
+      }
+}
+
 export {
     postBlog,
     getAllBlogs,
@@ -493,5 +553,6 @@ export {
     getBlogLikes,
     getAllComments,
     getMyBlogs,
-    checkUserLikedBlog
+    checkUserLikedBlog,
+    updateBlogImage
 }

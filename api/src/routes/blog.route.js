@@ -9,7 +9,8 @@ import { checkUserLikedBlog,
          getSingleBlog, 
          likingBlog, 
          postBlog, 
-         updateBlog } from "../controllers/blog.controller.js";
+         updateBlog, 
+         updateBlogImage} from "../controllers/blog.controller.js";
 import { validateUser } from "../middleware/auth.middleware.js";
 import { upload } from "../middleware/multer.middlerware.js";
 
@@ -33,6 +34,13 @@ router.route("/like/:id").post(validateUser,likingBlog)
 router.route("/comment/:id").post(validateUser,commentingBlog)
 
 router.route("/updateBlog/:id").put(validateUser,updateBlog)
+router.route("/updateImage/:id").put(upload.fields([
+    {
+        name:"image",
+        maxCount: 1
+    }
+]),validateUser,updateBlogImage)
+
 router.route("/deleteBlog/:id").delete(validateUser,deleteBlog)
 
 
