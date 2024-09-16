@@ -34,7 +34,7 @@ const Blog = ({
     };
 
     useEffect(() => {
-        
+
       }, []);
 
     const handleComment = async() => {
@@ -57,11 +57,16 @@ const Blog = ({
     <>
       <div className='container'>
         <div className="card">
+            <div className="blogHeader">
+             <img className="avatar" 
+                  src={blog.user?.avatar ? blog.user.avatar : '/default-profile-image.webp'}
+                  alt="User Avatar" />
+               <div className="username"> {blog.user?.username}</div>
+            </div>
   <div className="card-img-holder">
     <img src={blog.image} alt="Blog image" />
   </div>
   <h3 className="blog-title">{blog.title}</h3>
-  <span className="blog-time"> {weekday} {formatedDate}</span>
   <p className="description">
    {blog.content}
   </p>
@@ -69,8 +74,9 @@ const Blog = ({
     <Link className='read-blog' to="/single-blog">
       Read Full Blog
     </Link>
+    
   </div>
-         
+  
          <div className="social-icons">
             <button className='likeCount'>{likeCount}</button>
             <i
@@ -81,6 +87,10 @@ const Blog = ({
             <i className="fas fa-comment" 
               onClick={handleComment} 
             ></i>
+           
+          </div>
+          <div className="date">
+            <span className="blog-time"> {weekday} {formatedDate}</span>
           </div>
 </div>
 

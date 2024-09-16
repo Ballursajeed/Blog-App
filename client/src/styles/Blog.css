@@ -55,25 +55,21 @@ html{
   height: auto;
   max-height: 15rem;
   object-fit: cover;
+  border: 1px solid gray;
   border-radius: 1.5rem;
 }
 
 .blog-title{
   color: #22215B;
-  padding: 1rem 0;
   font-size: 1.5rem;
 }
 
 .description{
-  padding: 1rem 0;
+  padding-bottom: 1rem 0;
   color: #22215B80;
   font-size: 1rem;
 }
 
-.blog-time{
-  font-size: .8rem;
-  color: #22215B;
-}
 
 .options{
   display: flex;
@@ -99,13 +95,6 @@ html{
   cursor: pointer;
 }
 
-.social-icons {
-  display: flex;
-  justify-content: flex-start;
-  gap: 1rem;
-  padding-top: 1rem;
-  font-size: 1.5rem;
-}
 
 .social-icons i {
   cursor: pointer;
@@ -149,4 +138,50 @@ html{
 .likeCount:hover {
   text-decoration: underline; 
   font-size: 25px;
+}
+
+.blogHeader {
+  display: flex;
+  align-items: center; 
+  justify-content: flex-start; 
+  width: 100%;
+  padding-bottom: 1rem;
+}
+
+
+.social-icons {
+  display: flex;
+  align-items: center; 
+  justify-content: flex-start; 
+  width: 100%;
+  padding-bottom: 1rem;
+  font-size: 1.5rem;
+}
+
+.username {
+  font-weight: 600; /* Makes the username bold */
+  font-size: 1rem;
+  margin-right: auto; /* Pushes the username to the left */
+}
+
+.avatar {
+  width: 40px; 
+  height: 40px;
+  border-radius: 50%; 
+  object-fit: cover; 
+  margin-right: 10px; 
+}
+
+.date{
+  display: flex;
+  align-items: center; 
+  justify-content: flex-end; 
+  width: 100%;
+  padding-bottom: 1rem;
+  font-size: 1.5rem;
+}
+
+.blog-time{
+  font-size: .8rem;
+  color: #22215B;
 }
