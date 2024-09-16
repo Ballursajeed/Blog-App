@@ -451,14 +451,25 @@ const getMyBlogs = async(req,res) => {
       const id = blogsIds[i];
       const blog = await Blog.findById({
          _id: id
-      }) 
+      }).lean() 
      blogs.push(blog)    
    }
+
+   let blogsWithUser = []
+   for (let i = 0; i < blogs.length; i++) {
+       let blog = blogs[i];
+       let user = await User.findById({_id: blog.author});
+
+       blog.user = user;
+
+       blogsWithUser.push(blog);
+   }        
+ 
  
    res.status(200).json({
      message:"Fetched User's Blogs!",
      status: 200,
-     blogs
+     blogs: blogsWithUser
    })
    } catch (error) {
         return res.status(500).json({
