@@ -50,8 +50,8 @@ const Blog = ({
     }
 
     const handleDelete = async() => {
-      const isDelete = window.prompt("Do you want to delete the blog? Type 'yes'");
-      if (isDelete === 'yes') { 
+       window.alert("Do you want to delete the blog??");
+      
         try {
           const res = await axios.delete(`${SERVER}/blog/deleteBlog/${blog._id}`, {
             withCredentials: true
@@ -67,7 +67,6 @@ const Blog = ({
         } catch (error) {
           console.error("Error deleting the blog:", error);
         }
-      }
     }
 
     const handleUpdate = async() => {
