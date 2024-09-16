@@ -66,7 +66,7 @@ function App() {
               <Route path="/" element={<Register />}/>
               <Route path="/login" element={<Login />}/>
               <Route path="/home" element={<Home />}/>
-              <Route path="/single-blog" element={<SingleBlog />}/>
+              <Route path="/single-blog/:id" element={<SingleBlog />}/>
             </Routes>
           </>
         )
