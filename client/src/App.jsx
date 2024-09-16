@@ -11,6 +11,7 @@ import { SERVER } from "./constants/constants";
 import SingleBlog from "./components/SingleBlog";
 import MyBlog from "./components/MyBlog";
 import CreatePost from "./components/CreatePost";
+import Profile from "./components/Profile";
 
 function App() {
 
@@ -35,7 +36,6 @@ function App() {
                   user:response.data?.user,
                   token: response.data?.user?.refreshToken
                  }))
-                // navigate("/home")
 
               }
              
@@ -50,11 +50,7 @@ function App() {
   fetchUserDetails();
   },[])
 
-  // useEffect(() => {
-  //   if (isLoggedIn) {
-  //     navigate("/home");
-  //   }
-  // }, [isLoggedIn, navigate])
+
 
   return (
     <>
@@ -69,8 +65,9 @@ function App() {
               <Route path="/login" element={<Login />}/>
               <Route path="/home" element={<Home />}/>
               <Route path="/single-blog/:id" element={<SingleBlog />}/>
-              <Route path="/my-blogs" element={<MyBlog />}/>
+              <Route path="/my-blogs" element={<MyBlog  />}/>
               <Route path="/post-blog" element={<CreatePost />}/>
+              <Route path="/profile" element={<Profile  />}/>
             </Routes>
           </>
         )

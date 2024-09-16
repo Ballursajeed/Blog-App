@@ -3,10 +3,13 @@ import "../styles/Blog.css"
 import axios from 'axios';
 import { SERVER } from '../constants/constants';
 import { useNavigate } from 'react-router-dom';
+import { useSelector } from 'react-redux';
 
 const Blog = ({
   blog
 }) => {
+
+    const auth = useSelector((state) => state.auth);
 
     const [liked, setLiked] = useState(false);
     const [likeCount,setLikeCount] = useState(blog.likes);
@@ -58,6 +61,10 @@ const Blog = ({
     weekday: 'long'
  }) 
 
+
+ const admin = blog?.author === auth.user?._id;
+ 
+
   return (
     <>
       <div className='container'>
@@ -68,7 +75,7 @@ const Blog = ({
                   alt="User Avatar" />
                <div className="username"> {blog.user?.username}</div>
             </div>
-  <div className="card-img-holder">
+    <div className="card-img-holder">
     <img src={blog.image} alt="Blog image" />
   </div>
   <h3 className="blog-title">{blog.title}</h3>
@@ -94,6 +101,18 @@ const Blog = ({
             ></i>
            
           </div>
+          {
+               admin ? 
+               (
+                <div className="auth-btn">
+                <button className="edit"> Edit</button>
+                <button className="delete"> delete</button>
+               </div>
+               ) : (
+                <></>
+               )
+          }
+          
           <div className="date">
             <span className="blog-time"> {weekday} {formatedDate}</span>
           </div>
