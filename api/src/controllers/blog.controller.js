@@ -458,11 +458,14 @@ const getMyBlogs = async(req,res) => {
    let blogsWithUser = []
    for (let i = 0; i < blogs.length; i++) {
        let blog = blogs[i];
-       let user = await User.findById({_id: blog.author});
+       let user = {};
+       if (blog?.author) {
+         user = await User.findById({_id: blog?.author});
+         blog.user = user;
+         blogsWithUser.push(blog);
+       }
 
-       blog.user = user;
-
-       blogsWithUser.push(blog);
+       
    }        
  
  
