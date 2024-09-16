@@ -9,6 +9,7 @@ import { useNavigate } from "react-router-dom";
 import Home from "./components/Home";
 import { SERVER } from "./constants/constants";
 import SingleBlog from "./components/SingleBlog";
+import MyBlog from "./components/MyBlog";
 
 function App() {
 
@@ -67,6 +68,7 @@ function App() {
               <Route path="/login" element={<Login />}/>
               <Route path="/home" element={<Home />}/>
               <Route path="/single-blog/:id" element={<SingleBlog />}/>
+              <Route path="/my-blogs" element={<MyBlog />}/>
             </Routes>
           </>
         )
