@@ -21,20 +21,15 @@ const EditUser = () => {
        try {
          e.preventDefault()
          
-
          const res = await axios.put(`${SERVER}/user/updateUserInfo/${id}`,{
                  fullName, email, username
          },{
            withCredentials: true
          })
 
-         console.log("update res: ",res.data);
-        
-      
        } catch (error) {
         console.log(error?.response?.data);
        }
-        
     }
 
     const handleUploadImage = async(e) => {
@@ -50,13 +45,9 @@ const EditUser = () => {
             }
             })
    
-            console.log("update avatar: ",res.data);
-          
           } catch (error) {
            console.log(error?.response?.data);
           }
-        console.log();
-        
     }
  
   return (

@@ -15,7 +15,23 @@ const Profile = () => {
     const navigate = useNavigate()
 
     const handleDelete = async() => {
-
+      window.alert("Do you want to delete Your Account?");
+      
+      try {
+        const res = await axios.delete(`${SERVER}/user/deleteUser/${auth.user?._id}`, {
+          withCredentials: true
+        });
+        
+        if (res.status === 200) {
+          console.log(res.data);
+          // Refresh the page after successful deletion
+          window.location.reload();
+        } else {
+          console.error("Failed to delete the blog");
+        }
+      } catch (error) {
+        console.error("Error deleting the blog:", error);
+      }
     }
 
     const handleEdit = async() => {
