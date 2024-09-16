@@ -20,15 +20,12 @@ const GetBlogs = () => {
           
     },[])
 
-    console.log("state blogs:",blogs);
-    
-
   return (
     <>
       {
         blogs.map((blog,index) => {
           return (
-            <Blog blog= {blog} key={index}/>
+            <Blog blog={blog} key={index}/>
           )
         })
       }
