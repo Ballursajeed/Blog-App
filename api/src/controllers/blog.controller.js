@@ -72,10 +72,7 @@ const getAllBlogs = async(req,res) => {
             blog.user = user;
 
             blogsWithUser.push(blog);
-        }
-
-        console.log(blogsWithUser);
-        
+        }        
       
         res.status(200).json({
             message: "All Blogs are fetched!",
@@ -99,7 +96,7 @@ const getSingleBlog = async(req,res) => {
     
         const blog = await Blog.findById({
             _id:id
-        })
+        }).lean()
 
         if (!blog) {
             return res.status(404).json({
@@ -108,10 +105,20 @@ const getSingleBlog = async(req,res) => {
             })
         }
     
+        let user = await User.findById({_id: blog.author}).select("-password -refreshToken")
+   
+        const blogWithUser = {
+
+        } 
+
+        blogWithUser.blog = blog;
+        blogWithUser.blog.user = user
+
         res.status(200).json({
             message: "Single Blog Fetched!",
             status: 200,
-            blog
+            blog:blogWithUser
+       
         })
 
     } catch (error) {
