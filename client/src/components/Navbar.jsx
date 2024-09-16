@@ -33,9 +33,14 @@ const Navbar = () => {
   return (
     <nav className="navbar">
       <div className="logo">
-        <Link to="/">BLOGY</Link>
+        <Link >BLOGY</Link>
       </div>
       <ul className="nav-links">
+      <li>
+          <Link to="/home">
+           <button className='btn'> Home </button>
+          </Link>
+        </li>
         <li>
           <Link to="/post-blog">
            <button className='btn'> Create a Blog </button>
