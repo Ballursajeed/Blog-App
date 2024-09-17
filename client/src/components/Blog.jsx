@@ -42,7 +42,17 @@ const Blog = ({
     }
 
     useEffect(() => {
-
+          const checkUserLikedBlog = async() => {
+            const res = await axios.get(`${SERVER}/blog/like/status/${blog._id}`,{
+              withCredentials: true
+            });
+            console.log("is Liked",res.data);
+            if (res.data?.isLiked) {
+                setLiked(!liked)
+            }
+            
+          }
+          checkUserLikedBlog()
       }, []);
 
     const handleComment = async() => {
