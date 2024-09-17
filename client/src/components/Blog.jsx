@@ -6,6 +6,7 @@ import { useNavigate } from 'react-router-dom';
 import { useSelector } from 'react-redux';
 import Popup from 'reactjs-popup';
 import ShowLike from './ShowLike';
+import Comments from './Comments';
 
 const Blog = ({
   blog
@@ -35,7 +36,6 @@ const Blog = ({
             if (response.data?.status >= 200 && response.status < 300) {
                 setLiked(!liked);
             } 
-          console.log(response.data);
           
     };
 
@@ -50,7 +50,6 @@ const Blog = ({
             const res = await axios.get(`${SERVER}/blog/like/status/${blog._id}`,{
               withCredentials: true
             });
-            console.log("is Liked",res.data);
             if (res.data?.isLiked) {
                 setLiked(!liked)
             }
@@ -60,7 +59,7 @@ const Blog = ({
       }, []);
 
     const handleComment = async() => {
-        
+        navigater(`/single-blog/${blog._id}`)
     }
 
     const handleDelete = async() => {
@@ -72,7 +71,6 @@ const Blog = ({
           });
           
           if (res.status === 200) {
-            console.log(res.data);
             // Refresh the page after successful deletion
             window.location.reload();
           } else {
@@ -139,12 +137,18 @@ const Blog = ({
               className={`fas fa-heart ${liked ? 'liked' : 'unliked'}`}
               onClick={handleLikeUnlike}
             ></i>
+
+               <Popup trigger=
+                {<i className="fas fa-comment" 
+                  onClick={handleComment} 
+                ></i>}
+                position="right center">
+               {close => (
+                 <Comments blog={blog} />
+                )}
+            </Popup> 
            
-            <i className="fas fa-comment" 
-              onClick={handleComment} 
-            ></i>
-           
-          </div>
+          </div>  
           {
                admin ? 
                (
