@@ -1,4 +1,4 @@
-import mongoose from "mongoose";
+import mongoose, { mongo } from "mongoose";
 import { Blog } from "../models/blog.model.js";
 import { Like } from "../models/like.model.js";
 import { Comment } from "../models/comment.model.js";
@@ -221,7 +221,7 @@ const likingBlog = async(req,res) => {
 
     if (existingLike) {
     
-      await Like.findByIdAndDelete(existingLike._id);
+     const unlike = await Like.findByIdAndDelete(existingLike._id);
 
       blog.likes = blog.likes - 1;
       await blog.save({ validateBeforeSave: true });
@@ -229,6 +229,7 @@ const likingBlog = async(req,res) => {
       return res.status(200).json({
         message: "Blog unliked successfully!",
         status: 200,
+        unlike
       });
     } 
         blog.likes = blog.likes + 1;
@@ -258,18 +259,53 @@ const likingBlog = async(req,res) => {
 }
 
 const checkUserLikedBlog = async(req,res) => {
-      const { blog } = req.params;
+      const { id } = req.params;
 
-      const like = await Like.findOne({
-        blog
-      })
+      console.log(id);
 
-      console.log(like);
-      
-
-      if (like?.blog === blog) {
-        console.log("yes!!");
+      if (!id) {
+        console.log("no user didn't like the blog");
+        
       }
+
+      console.log("user id: ",req.user?._id);
+      
+      const userLikedBlogs = await Like.aggregate([
+        {
+            $match:{
+                likedBy: req.user?._id
+            }
+        },
+        {
+            $match:{
+                blog: new mongoose.Types.ObjectId(id)
+            }
+        },
+        {
+            $project:{
+                _id:1,
+                blog:1,
+                likedBy:1
+            }
+        }
+      ]);
+
+      if (userLikedBlogs.length === 0) {
+        return res.status(200).json({
+            isLiked: false,
+        })
+      }
+    
+    const blogInLike = (userLikedBlogs[0].blog).toString();
+    const likedbyUser = (userLikedBlogs[0].likedBy).toString();
+
+      if (blogInLike === id && likedbyUser === (req.user._id).toString()) {
+          return res.status(200).json({
+            isLiked: true
+          })
+         
+       }
+      
 
 }
 
