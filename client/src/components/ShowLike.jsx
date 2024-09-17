@@ -1,10 +1,10 @@
 import React, { useEffect, useState } from 'react'
-import Popup from 'reactjs-popup';
 import Avatar from './Avatar';
 import axios from 'axios';
 import { SERVER } from '../constants/constants';
+import "../styles/ShowLike.css"
 
-const ShowLike = ({blog}) => {
+const ShowLike = ({blog, close}) => {
 
   const [userDetails,setUserDetails] = useState([])
 
@@ -26,9 +26,10 @@ const ShowLike = ({blog}) => {
 
   return (
     <div className='likeContainer'>
-      <h3>Liked By</h3>
+      <h3>Liked By</h3> 
+      <button className='closeButton' onClick={close}>X</button>
       {
-        userDetails.map((user) => <Avatar user = {user.userDetails}/>
+        userDetails.map((user) => <Avatar key={user._id} user = {user.userDetails}/>
         )
       }
     </div>

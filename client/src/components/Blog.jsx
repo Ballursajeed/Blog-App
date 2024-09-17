@@ -131,7 +131,9 @@ const Blog = ({
             <Popup trigger=
                 {<button className='likeCount'>{likeCount}</button>}
                 position="right center">
-               <ShowLike blog = {blog} />
+               {close => (
+                 <ShowLike blog={blog} close={close} />
+                )}
             </Popup>
             <i
               className={`fas fa-heart ${liked ? 'liked' : 'unliked'}`}
