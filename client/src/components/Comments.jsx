@@ -2,6 +2,7 @@ import axios from 'axios'
 import React, { useEffect, useState } from 'react'
 import { SERVER } from '../constants/constants'
 import Avatar from './Avatar';
+import "../styles/Comment.css"
 
 const Comments = ({blog}) => {
 
@@ -29,8 +30,10 @@ const Comments = ({blog}) => {
      {
         comments.map((comment) => 
         {
-            return ( <> <Avatar key={comment._id} user = {comment.userDetails}/> 
-                        <div>{comment?.content}</div>
+            return ( <> <div className='commentContainer'>
+                   <Avatar key={comment._id} user = {comment.userDetails}/> 
+                   <div>{comment?.content}</div>
+            </div>
                       </> 
             )
         }   
