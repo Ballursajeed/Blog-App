@@ -260,52 +260,60 @@ const likingBlog = async(req,res) => {
 
 const checkUserLikedBlog = async(req,res) => {
       const { id } = req.params;
-
-      console.log(id);
-
-      if (!id) {
-        console.log("no user didn't like the blog");
-        
-      }
-
-      console.log("user id: ",req.user?._id);
-      
-      const userLikedBlogs = await Like.aggregate([
-        {
-            $match:{
-                likedBy: req.user?._id
-            }
-        },
-        {
-            $match:{
-                blog: new mongoose.Types.ObjectId(id)
-            }
-        },
-        {
-            $project:{
-                _id:1,
-                blog:1,
-                likedBy:1
-            }
-        }
-      ]);
-
-      if (userLikedBlogs.length === 0) {
-        return res.status(200).json({
-            isLiked: false,
-        })
-      }
+try {
     
-    const blogInLike = (userLikedBlogs[0].blog).toString();
-    const likedbyUser = (userLikedBlogs[0].likedBy).toString();
-
-      if (blogInLike === id && likedbyUser === (req.user._id).toString()) {
-          return res.status(200).json({
-            isLiked: true
-          })
-         
-       }
-      
+    
+          if (!id) {
+            return res.status(404).json({
+                message:"didn't recive an Id",
+                status: 404
+          })        
+          }
+    
+          const userLikedBlogs = await Like.aggregate([
+            {
+                $match:{
+                    likedBy: req.user?._id
+                }
+            },
+            {
+                $match:{
+                    blog: new mongoose.Types.ObjectId(id)
+                }
+            },
+            {
+                $project:{
+                    _id:1,
+                    blog:1,
+                    likedBy:1
+                }
+            }
+          ]);
+    
+          if (userLikedBlogs.length === 0) {
+            return res.status(200).json({
+                isLiked: false,
+            })
+          }
+        
+        const blogInLike = (userLikedBlogs[0].blog).toString();
+        const likedbyUser = (userLikedBlogs[0].likedBy).toString();
+    
+          if (blogInLike === id && likedbyUser === (req.user._id).toString()) {
+              return res.status(200).json({
+                isLiked: true
+              })
+             
+           }
+          
+} catch (error) {
+    return res.status(500).json({
+        message: "OOPS!! Something Went Wrong While Fetching likes on a Blog!!",
+        status: 500,
+        errorMessage: error.message,
+        error
+     })
+}
 
 }
 
