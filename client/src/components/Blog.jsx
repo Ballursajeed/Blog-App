@@ -4,6 +4,8 @@ import axios from 'axios';
 import { SERVER } from '../constants/constants';
 import { useNavigate } from 'react-router-dom';
 import { useSelector } from 'react-redux';
+import Popup from 'reactjs-popup';
+import ShowLike from './ShowLike';
 
 const Blog = ({
   blog
@@ -36,6 +38,8 @@ const Blog = ({
           console.log(response.data);
           
     };
+
+    
 
     const navigateTo = () => {
          navigater(`/single-blog/${blog._id}`)
@@ -124,7 +128,11 @@ const Blog = ({
   </div>
   
          <div className="social-icons">
-            <button className='likeCount'>{likeCount}</button>
+            <Popup trigger=
+                {<button className='likeCount'>{likeCount}</button>}
+                position="right center">
+               <ShowLike blog = {blog} />
+            </Popup>
             <i
               className={`fas fa-heart ${liked ? 'liked' : 'unliked'}`}
               onClick={handleLikeUnlike}
