@@ -377,7 +377,7 @@ const getSingleUser = async(req,res) => {
      })
    } catch (error) {
         return res.status(500).json({
-            message: "OOPS!! Something Went Wrong While fetching Users!!",
+            message: "OOPS!! Something Went Wrong While fetching User!!",
             status: 500,
             errorMessage: error.message,
             error
