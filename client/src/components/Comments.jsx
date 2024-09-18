@@ -3,10 +3,12 @@ import React, { useEffect, useState } from 'react';
 import { SERVER } from '../constants/constants';
 import Avatar from './Avatar';
 import "../styles/Comment.css";
+import { useSelector } from 'react-redux';
 
 const Comments = ({ blog, close }) => {
     const [comments, setComments] = useState([]);
     const [comment, setComment] = useState('');
+    const auth = useSelector((state) => state.auth);
 
     useEffect(() => {
         const getAllComments = async () => {
@@ -29,10 +31,22 @@ const Comments = ({ blog, close }) => {
         });
 
         if (res.data?.status === 201) {
+            
             setComments([...comments, res.data?.comment]);
             setComment(''); // Clear the input field after posting
         }
     };
+
+    console.log(comments);
+    
+
+    const handleDelete = async(id) => {
+          const res = await axios.delete(`${SERVER}/blog/deleteComment/${id}`,{
+            withCredentials: true
+          });
+          console.log(res.data);
+          setComments(comments.filter((comment) => comment._id !== id ))
+    }
 
     return (
         <div className='commentContainer'>
@@ -48,6 +62,12 @@ const Comments = ({ blog, close }) => {
                         <div className='commentContent'>
                           <p>{comment?.content}</p>
                         </div>
+                        {
+                            auth.user?._id === comment?.owner ? <div className="deleteButton">
+                            <button onClick={() => handleDelete(comment?._id)}>Delete</button>
+                        </div> : <></>
+                        }
+                        
                     </div>
                 ))}
             </div>
