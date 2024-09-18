@@ -161,6 +161,7 @@ html{
 }
 
 .username {
+  cursor: pointer;
   font-weight: 600; /* Makes the username bold */
   font-size: 1rem;
   margin-right: auto; /* Pushes the username to the left */

@@ -35,7 +35,7 @@ const Profile = () => {
     }
 
     const handleEdit = async() => {
-         navigate(`/edit-profile:/${auth.user?._id}`)
+         navigate(`/edit-profile/${auth.user?._id}`)
     } 
 
     useEffect(() => {

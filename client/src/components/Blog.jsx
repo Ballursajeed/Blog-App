@@ -100,12 +100,16 @@ const Blog = ({
 
       const admin = blog?.author === auth.user?._id;
  
+      const getSingleUser = () => {
+        navigater(`/single-user/${blog?.user?._id}`)
+      }
+
 
   return (
     <>
       <div className='container'>
         <div className="card">
-            <div className="blogHeader">
+            <div onClick={getSingleUser} className="blogHeader">
              <img className="avatar" 
                   src={blog.user?.avatar ? blog.user.avatar : '/default-profile-image.webp'}
                   alt="User Avatar" />

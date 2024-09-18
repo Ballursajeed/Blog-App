@@ -14,6 +14,7 @@ import CreatePost from "./components/CreatePost";
 import Profile from "./components/Profile";
 import UpdateBlog from "./components/UpdateBlog";
 import EditUser from "./components/EditUser";
+import SingleUser from "./components/SingleUser";
 
 function App() {
 
@@ -71,7 +72,8 @@ function App() {
               <Route path="/post-blog" element={<CreatePost />}/>
               <Route path="/profile" element={<Profile  />}/>
               <Route path="/update-blog/:id" element={<UpdateBlog  />}/>
-              <Route path="/edit-profile:/:id" element={<EditUser  />}/>
+              <Route path="/edit-profile/:id" element={<EditUser  />}/>
+              <Route path="/single-user/:id" element={<SingleUser  />}/>
             </Routes>
           </>
         )
