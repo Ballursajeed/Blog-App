@@ -2,6 +2,7 @@ import { Router } from "express";
 import { checkUserLikedBlog, 
          commentingBlog, 
          deleteBlog, 
+         deleteComment, 
          getAllBlogs, 
          getAllComments, 
          getBlogLikes, 
@@ -42,6 +43,7 @@ router.route("/updateImage/:id").put(upload.fields([
 ]),validateUser,updateBlogImage)
 
 router.route("/deleteBlog/:id").delete(validateUser,deleteBlog)
+router.route("/deleteComment/:id").delete(validateUser,deleteComment)
 
 
 export default router;

@@ -429,6 +429,41 @@ const getAllComments = async(req,res) => {
 
  }
 
+ const deleteComment = async(req,res) => {
+    try {
+        const { id } = req.params;
+    
+        const comment = await Comment.findById({
+            _id: id
+        });
+    
+        if (!comment) {
+            return res.status(404).json({
+                message: "Comment Not Found",
+                status: 404
+            })
+        }
+    
+        await Comment.findByIdAndDelete({
+            _id: id
+        })
+    
+        res.status(200).json({
+            message:"Comment Deleted Successfully!",
+            status: 200
+        })
+    
+    } catch (error) {
+        return res.status(500).json({
+            message: "OOPS!! Something Went Wrong While Deleting Comment!!",
+            status: 500,
+            errorMessage: error.message,
+            error,
+          });
+    }
+
+ }
+
 const getBlogLikes = async(req,res) => {
     
     try {
@@ -607,5 +642,6 @@ export {
     getAllComments,
     getMyBlogs,
     checkUserLikedBlog,
-    updateBlogImage
+    updateBlogImage,
+    deleteComment
 }
