@@ -341,12 +341,20 @@ const commentingBlog = async(req,res) => {
             })
         }
     
-       const comment = await Comment.create({
+       const createdComment = await Comment.create({
               content,
                blog: blog._id,
                owner: req.user?._id
         })
+
+        const comment = await Comment.findById({_id: createdComment?._id}).lean()
+
+        const user = await User.findById({_id: req.user?._id});
+       
+        const userDetails = [user];
     
+        comment.userDetails = userDetails
+
         res.status(201).json({
             message: "Comment added Successfully!",
             status: 201,
