@@ -8,6 +8,7 @@ import { checkUserLikedBlog,
          getBlogLikes, 
          getMyBlogs, 
          getSingleBlog, 
+         getUserBlog, 
          likingBlog, 
          postBlog, 
          updateBlog, 
@@ -22,6 +23,7 @@ router.route("/getSingleBlog/:id").get(validateUser,getSingleBlog)
 router.route("/getBlogLikes/:id").get(validateUser,getBlogLikes)
 router.route("/getBlogComments/:id").get(validateUser,getAllComments)
 router.route("/getMyBlogs").get(validateUser,getMyBlogs)
+router.route("/getUserBlog/:id").get(validateUser,getUserBlog)
 router.route("/like/status/:id").get(validateUser,checkUserLikedBlog)
 
 router.route("/post").post(validateUser,

@@ -130,6 +130,58 @@ const getSingleBlog = async(req,res) => {
 
 }
 
+const getUserBlog = async(req,res) => {
+    const { id } = req.params;
+
+    const user = await User.findById({
+        _id: id
+    })
+
+    if (!user) {
+        return res.status(404).json({
+            message: "User Not Found!",
+            status: 404
+        })
+    }
+
+    const blogsIds  = user.blogs
+ 
+    if (blogsIds.length === 0) {
+        return res.status(404).json({
+            message: "You don not Posted any Blogs!",
+            status: 404
+        })
+    }
+
+   const blogs = [];
+ 
+   for (let i = 0; i < blogsIds.length; i++) {
+      const id = blogsIds[i];
+      const blog = await Blog.findById({
+         _id: id
+      }).lean() 
+     blogs.push(blog)    
+   }
+
+   let blogsWithUser = []
+   for (let i = 0; i < blogs.length; i++) {
+       let blog = blogs[i];
+       let user = {};
+       if (blog?.author) {
+         user = await User.findById({_id: blog?.author});
+         blog.user = user;
+         blogsWithUser.push(blog);
+       }
+   }        
+ 
+   res.status(200).json({
+    message:"Fetched User's Blogs!",
+    status: 200,
+    blogs: blogsWithUser
+  })
+
+}
+
 const updateBlog = async(req,res) => {
     try {
         
@@ -549,13 +601,11 @@ const getMyBlogs = async(req,res) => {
          blog.user = user;
          blogsWithUser.push(blog);
        }
-
-       
    }        
  
  
    res.status(200).json({
-     message:"Fetched User's Blogs!",
+     message:"Fetched MY Blogs!",
      status: 200,
      blogs: blogsWithUser
    })
@@ -643,5 +693,6 @@ export {
     getMyBlogs,
     checkUserLikedBlog,
     updateBlogImage,
-    deleteComment
+    deleteComment,
+    getUserBlog
 }
