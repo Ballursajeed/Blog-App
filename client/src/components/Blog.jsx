@@ -144,7 +144,7 @@ const Blog = ({
                 ></i>}
                 position="right center">
                {close => (
-                 <Comments blog={blog} />
+                 <Comments blog={blog} close={close}/>
                 )}
             </Popup> 
            
