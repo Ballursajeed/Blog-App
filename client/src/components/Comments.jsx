@@ -46,7 +46,7 @@ const Comments = ({ blog, close }) => {
                     <div className='commentItem' key={comment._id}>
                         <Avatar user={comment.userDetails} />
                         <div className='commentContent'>
-                            <p>{comment?.content}</p>
+                          <p>{comment?.content}</p>
                         </div>
                     </div>
                 ))}
