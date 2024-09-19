@@ -95,7 +95,7 @@ const Register = () => {
       <h2>Register</h2>
       <form action="" method='post' onSubmit={submitHandler}>
           <div>
-           <label htmlFor="fullName">Full Name:</label>
+           <label htmlFor="fullName">Full Name: </label>
            <input type="text" 
                 placeholder='Enter Full Name...' 
                 id='fullName' 
@@ -105,7 +105,7 @@ const Register = () => {
            />
           </div>
           <div>
-          <label htmlFor="email">Email:</label>
+          <label htmlFor="email">Email: </label>
                     <input type="text" 
                           placeholder='Enter Email...' 
                           id='email' 
@@ -116,7 +116,7 @@ const Register = () => {
           </div>
 
           <div>
-            <label htmlFor="username">Username:</label>
+            <label htmlFor="username">Username: </label>
             <input type="text" 
                   placeholder='Enter Username...' 
                   id='username' 
@@ -127,7 +127,7 @@ const Register = () => {
           </div>
 
           <div>
-            <label htmlFor="password">Password:</label>
+            <label htmlFor="password">Password: </label>
             <input type="text" 
                   placeholder='Enter Password...'
                   id='password' 
