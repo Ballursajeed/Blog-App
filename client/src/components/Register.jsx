@@ -75,6 +75,14 @@ const Register = () => {
        } catch (error) {
         console.log(error?.response?.data);
         dispatch(loginFailure)
+        toast.error(`${error?.response?.data?.message}`,{
+          position: "top-center",
+                autoClose: 5000,
+                hideProgressBar: false,
+                closeOnClick: true,
+                pauseOnHover: true,
+                draggable: true,
+        })
        }
         
     }
