@@ -49,7 +49,6 @@ const CreatePost = () => {
 
   return (
     <>
-    <Navbar />
       <div className='container'>
         <div className="card">
         <h2>Post a Blog</h2>

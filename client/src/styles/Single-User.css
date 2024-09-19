@@ -1,17 +1,18 @@
-/* Profile page container */
-.Profile-container {
+/* single page container */
+.single-container {
     display: flex;
-    justify-content: space-between; /* Space between profile and blogs */
+    justify-content: space-between; /* Space between single and blogs */
     align-items: flex-start; /* Aligns both elements at the top */
     padding: 5rem 2rem 2rem 2rem;
     gap: 1rem;
     margin-top: 60px;
 }
 
-/* User profile card */
-.Profile-card {
+/* User single card */
+.single-card {
     box-shadow: 0 4px 8px 0 rgba(0, 0, 0, 0.2);
-    width: 400px;
+    max-width: 300px;
+    width: 100%; /* Allow flexibility */
     text-align: center;
     padding: 1.5rem;
     background-color: #fff;
@@ -20,31 +21,31 @@
     top: 2rem;
 }
 
-.Profile-card img {
+.single-card img {
     width: 100%; /* Ensure image takes up full card width */
     border-radius: 50%; /* Make the avatar circular */
     max-width: 150px; /* Set a max size for the avatar */
     margin-bottom: 1rem;
 }
 
-.Profile-fullname {
+.single-fullname {
     font-size: 1.5rem;
     margin: 1rem 0 0.5rem;
 }
 
-.Profile-username {
+.single-username {
     color: grey;
     font-size: 1.2rem;
     margin-bottom: 1.5rem;
 }
 
-.Profile-blog{
+.single-blog{
     color: grey;
     font-size: 1.2rem;
     margin-bottom: 1.5rem;
 }
 
-.Profile-btn {
+.single-btn {
     border: none;
     outline: 0;
     padding: 10px;
@@ -57,12 +58,12 @@
     border-radius: 5px;
 }
 
-.Profile-btn:hover {
+.single-btn:hover {
     background-color: #555;
 }
 
 /* User blogs section */
-.Profile-userblogs {
+.single-userblogs {
     flex: 1; /* Take up remaining space */
     width: 500px;
     display: flex;
@@ -71,7 +72,7 @@
     flex-direction: column;
 }
 
-.Profile-userblogs h2 {
+.single-userblogs h2 {
     font-size: 1.8rem;
     margin-bottom: 1rem;
 }

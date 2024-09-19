@@ -24,7 +24,6 @@ const MyBlog = () => {
 
   return (
     <>
-    <Navbar />
       {
         blogs.map((blog,index) => {
           return (

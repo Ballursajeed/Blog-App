@@ -5,7 +5,6 @@ import GetBlogs from './GetBlogs'
 const Blog = () => {
   return (
     <div>
-      <Navbar />  
       <GetBlogs />
     </div>
   )

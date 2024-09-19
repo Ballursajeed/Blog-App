@@ -15,9 +15,22 @@ html{
 
   .card {
       max-width: 75%;
-      padding: 0;
+      padding: 5px;
       max-height: 850px;
        /* Allow card to take full width */
+  }
+  .card h3{
+    color: #22215B;
+    font-size: 1.2rem;
+  }
+  .card .description {
+    font-size: 0.9rem;
+  }
+  .card .options span{
+    font-size: 1rem;
+  }
+  .card .social-icons i{
+    size: 1px;
   }
 }
 

@@ -102,3 +102,61 @@
     outline: none;
     border-color: #008CBA;
 }
+
+/* Media Queries for smaller devices */
+@media (max-width: 768px) {
+    .commentContainer {
+        padding: 1rem;
+        max-width: 100%;
+    }
+
+    .commentHeader h3 {
+        font-size: 1.25rem;
+    }
+
+    .commentInput {
+        font-size: 0.9rem;
+        width: 50%;
+    }
+
+    .submitButton {
+        padding: 0.5rem 1rem;
+        font-size: 0.9rem;
+    }
+
+    .commentItem {
+        padding: 0.2rem;
+        flex-direction: column;
+        align-items: flex-start;
+    }
+
+    
+}
+
+@media (max-width: 480px) {
+    .commentHeader h3 {
+        font-size: 1rem;
+    }
+
+    .commentInput {
+        font-size: 0.85rem;
+        width: 100%;
+        margin-right: 0;
+    }
+
+    .commentContent p {
+        margin-top: 1px;
+        margin-bottom: 5px;
+        font-size: 0.9rem;
+    }
+
+    .submitButton {
+        width: 100%;
+        margin-top: 0.5rem;
+        padding: 0.5rem;
+    }
+
+    .commentItem {
+        padding: 0.3rem;
+    }
+}

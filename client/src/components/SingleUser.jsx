@@ -4,6 +4,8 @@ import { useParams } from 'react-router-dom'
 import { SERVER } from '../constants/constants';
 import Navbar from './Navbar';
 import Blog from './Blog';
+import "../styles/Single-User.css"
+import UserBlogs from './UserBlogs';
 
 const SingleUser = () => {
 
@@ -42,20 +44,19 @@ const SingleUser = () => {
 
   return (
     <>
-    <Navbar />
-    <div className="Profile-container">
-      <div className="Profile-card">
+    <div className="single-container">
+      <div className="single-card">
         <img src={user?.avatar ? user.avatar : '/default-profile-image.webp' } alt="Avatar" />
-        <h2 className="Profile-fullname">{user.fullName}</h2>
-        <p className="Profile-username">{user.username}</p>
-        <p className="Profile-blog">Blog Published:{user?.blogs?.length}</p>
+        <h2 className="single-fullname">{user.fullName}</h2>
+        <p className="single-username">{user.username}</p>
+        <p className="single-blog">Blog Published:{user?.blogs?.length}</p>
       </div>
-        <div className="Profile-userblogs">
-        <h2>Your Blogs:</h2>
+        <div className="single-userblogs">
+        <h2>Blogs:</h2>
         {
        blogs.map((blog,index) => {
         return (
-          <Blog blog={blog} key={index}/>
+          <UserBlogs blog={blog} single={false} key={index}/>
         )
       })
     }

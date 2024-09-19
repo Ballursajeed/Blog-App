@@ -52,7 +52,6 @@ const EditUser = () => {
  
   return (
     <div>
-        <Navbar />
      <div className="container">
      <h2>Update Account Details:</h2>
       <form action="" method='post' onSubmit={submitHandler}>

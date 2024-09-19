@@ -15,6 +15,7 @@ import Profile from "./components/Profile";
 import UpdateBlog from "./components/UpdateBlog";
 import EditUser from "./components/EditUser";
 import SingleUser from "./components/SingleUser";
+import Navbar from "./components/Navbar";
 
 function App() {
 
@@ -63,7 +64,8 @@ function App() {
            <p>Loading......</p>
           </>
         ) : (
-          <>
+          <>\
+          <Navbar />
             <Routes>
               <Route path="/" element={<Register />}/>
               <Route path="/login" element={<Login />}/>

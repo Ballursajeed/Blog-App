@@ -1,11 +1,10 @@
 import React, { useEffect, useState } from 'react'
-import Navbar from './Navbar'
 import "../styles/Profile.css"
 import { useSelector } from 'react-redux';
-import Blog from './Blog';
 import { SERVER } from '../constants/constants';
 import axios from 'axios';
 import { useNavigate } from 'react-router-dom';
+import UserBlogs from './UserBlogs';
 
 const Profile = () => {
 
@@ -53,7 +52,7 @@ const Profile = () => {
 
   return (
     <>
-      <Navbar />
+
       <div className="Profile-container">
         <div className="Profile-card">
           <img src={auth.user?.avatar ? auth.user.avatar : '/default-profile-image.webp' } alt="Avatar" />
@@ -64,11 +63,12 @@ const Profile = () => {
           <button className='Profile-btn' onClick={handleDelete}>delete Profile</button>
         </div>
           <div className="Profile-userblogs">
-          <h2>Your Blogs:</h2>
+        <h2>Your Blogs:</h2>
+
           {
          blogs.map((blog,index) => {
           return (
-            <Blog blog={blog} key={index}/>
+            <UserBlogs blog={blog} key={index} single={false}/>
           )
         })
       }

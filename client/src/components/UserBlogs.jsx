@@ -8,8 +8,8 @@ import Popup from 'reactjs-popup';
 import ShowLike from './ShowLike';
 import Comments from './Comments';
 
-const Blog = ({
-  blog, single
+const UserBlogs = ({
+  blog ,single
 }) => {
 
     const auth = useSelector((state) => state.auth);
@@ -97,7 +97,6 @@ const Blog = ({
           weekday: 'long'
       }) 
 
-      const admin = blog?.author === auth.user?._id;
  
       const getSingleUser = () => {
         navigater(`/single-user/${blog?.user?._id}`)
@@ -114,10 +113,10 @@ const Blog = ({
      
       console.log("Content of the blog: ",shorterContent.length, shorterContent.join(' '));
       
+      const admin = blog?.author === auth.user?._id;
 
   return (
     <>
-      <div className='container'>
         <div className="card">
             <div onClick={getSingleUser} className="blogHeader">
              <img className="avatar" 
@@ -141,9 +140,7 @@ const Blog = ({
     </span>
     }
    
-    
   </div>
-  
          <div className="social-icons">
             <Popup trigger=
                 {<button className='likeCount'>{likeCount}</button>}
@@ -179,15 +176,13 @@ const Blog = ({
                 <></>
                )
           }
-          
           <div className="date">
             <span className="blog-time"> {weekday} {formatedDate}</span>
           </div>
 </div>
 
-    </div>
     </>
   )
 }
 
-export default Blog
+export default UserBlogs

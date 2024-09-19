@@ -32,7 +32,7 @@ const SingleBlog = () => {
     <div>
         <Navbar />
         {
-            blog ? <Blog blog={blog} /> : (<></>)
+            blog ? <Blog blog={blog} single={true}/> : (<></>)
         }
     </div>
   )
