@@ -97,6 +97,7 @@ const Blog = ({
           weekday: 'long'
       }) 
 
+
       const admin = blog?.author === auth.user?._id;
  
       const getSingleUser = () => {

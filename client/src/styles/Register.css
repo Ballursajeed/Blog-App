@@ -45,7 +45,7 @@
 }
 
 .btn {
-    background-color: #2575fc;
+    background-color: #03193f;
     color: white;
     border: none;
     padding: 10px;
@@ -53,6 +53,20 @@
     border-radius: 5px;
     cursor: pointer;
     transition: background-color 0.3s ease;
+}
+
+.img-btn{
+    background-color: #175ace;
+    color: white;
+    border: none;
+    padding: 10px;
+    font-size: 16px;
+    border-radius: 5px;
+    cursor: pointer;
+    transition: background-color 0.3s ease;
+}
+.img-btn:hover {
+    background-color: #6a11cb;
 }
 
 .btn:hover {

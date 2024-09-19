@@ -59,8 +59,8 @@ const Profile = () => {
           <h2 className="Profile-fullname">{auth.user.fullName}</h2>
           <p className="Profile-username">{auth.user.username}</p>
           <p className="Profile-blog">Blog Published:{auth.user?.blogs?.length}</p>
-          <button className='Profile-btn' onClick={handleEdit}>edit</button>
-          <button className='Profile-btn' onClick={handleDelete}>delete Profile</button>
+          <button className='edit-btn' onClick={handleEdit}>edit</button>
+          <button className='delete-btn' onClick={handleDelete}>delete Profile</button>
         </div>
           <div className="Profile-userblogs">
         <h2>Your Blogs:</h2>

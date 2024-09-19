@@ -44,12 +44,12 @@
     margin-bottom: 1.5rem;
 }
 
-.Profile-btn {
+.delete-btn {
     border: none;
     outline: 0;
     padding: 10px;
     color: white;
-    background-color: #333;
+    background-color: #f43c3c;
     cursor: pointer;
     width: 100%;
     margin: 10px 0;
@@ -57,8 +57,25 @@
     border-radius: 5px;
 }
 
-.Profile-btn:hover {
-    background-color: #555;
+.delete-btn:hover {
+    background-color: #fe0b0b;
+}
+
+.edit-btn{
+    border: none;
+    outline: 0;
+    padding: 10px;
+    color: white;
+    background-color: #4CAF50;
+    cursor: pointer;
+    width: 100%;
+    margin: 10px 0;
+    font-size: 16px;
+    border-radius: 5px;
+}
+
+.edit-btn:hover{
+    background-color: #45e069;
 }
 
 /* User blogs section */

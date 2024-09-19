@@ -64,7 +64,7 @@ const Comments = ({ blog, close }) => {
                         </div>
                         {
                             auth.user?._id === comment?.owner ? <div className="deleteButton">
-                            <button onClick={() => handleDelete(comment?._id)}>Delete</button>
+                            <button onClick={() => handleDelete(comment?._id)} className='delete-btn'>Delete</button>
                         </div> : <></>
                         }
                         

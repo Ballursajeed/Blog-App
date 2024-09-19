@@ -97,7 +97,7 @@ const CreatePost = () => {
           </div>
 
           <div className="button-container">
-            <button type="submit">Submit</button>
+            <button type="submit" id='createButton'>Submit</button>
           </div>
         </form>
       </div>

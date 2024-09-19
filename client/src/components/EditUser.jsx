@@ -2,10 +2,8 @@ import React, { useState } from 'react'
 import "../styles/Register.css";
 import axios from "axios";
 import { SERVER } from '../constants/constants';
-import { useDispatch } from 'react-redux';
 import {  useParams } from 'react-router-dom';
 import { useNavigate } from 'react-router-dom';
-import Navbar from './Navbar';
 
 const EditUser = () => {
 
@@ -53,44 +51,56 @@ const EditUser = () => {
   return (
     <div>
      <div className="container">
-     <h2>Update Account Details:</h2>
+       <div className="register">
+       <h2>Update Account Details:</h2>
       <form action="" method='post' onSubmit={submitHandler}>
-        <label htmlFor="fullName">Full Name:</label>
-        <input type="text" 
-               placeholder='Enter Full Name...' 
-               id='fullName' 
-               value={fullName}
-               onChange={(e) => setFullName(e.target.value)}
-        />
+        <div>
+          <label htmlFor="fullName">Full Name:</label>
+          <input type="text" 
+                placeholder='Enter Full Name...' 
+                id='fullName' 
+                value={fullName}
+                onChange={(e) => setFullName(e.target.value)}
+          />
+        </div>
 
-        <label htmlFor="email">Email:</label>
-        <input type="text" 
-               placeholder='Enter Email...' 
-               id='email' 
-               value={email}
-               onChange={(e) => setEmail(e.target.value)}
-        />
+        <div>
+          <label htmlFor="email">Email:</label>
+          <input type="text" 
+                placeholder='Enter Email...' 
+                id='email' 
+                value={email}
+                onChange={(e) => setEmail(e.target.value)}
+          />
+        </div>
 
-        <label htmlFor="username">Username:</label>
-        <input type="text" 
-               placeholder='Enter Username...' 
-               id='username' 
-               value={username}
-               onChange={(e) => setUsername(e.target.value)}
-        />
-
-
-       
+        <div>
+          <label htmlFor="username">Username:</label>
+          <input type="text" 
+                placeholder='Enter Username...' 
+                id='username' 
+                value={username}
+                onChange={(e) => setUsername(e.target.value)}
+          />
+        </div>
 
         <button type='submit' className='btn'>Submit</button>
       </form>
 
+      <div className="imageUpload">
       <label htmlFor='avatar'>Update Profile Photo:</label>
+      <label className="customFileUpload">
+        <span className="uploadIcon">📁 Choose File</span> 
+        <p></p>
         <input type="file"
                onChange={(e) => setFile(e.target.files[0])}  
                 />
-       <button onClick={handleUploadImage}>Upload Image</button>         
+                </label>
+       <span id="fileName" className="fileName">No file chosen</span>
+       </div> 
+       <button onClick={handleUploadImage} className='img-btn'>Upload Image</button>
 
+       </div>
      </div>
     </div>
   )

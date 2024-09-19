@@ -216,6 +216,14 @@ html{
 
 .auth-btn button {
   cursor: pointer;
+  font-size: 1rem;
+  padding: .4rem 1rem;
+  margin-left: 10px;
+  border-radius: .5rem;
+  font-weight: 400;
+  background: #EEF7FE;
+  color: #22215B;
+  cursor: pointer;
 }
 
 .blog-time{
