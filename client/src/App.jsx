@@ -3,7 +3,7 @@ import Register from "./components/Register"
 import { useDispatch  } from "react-redux";
 import { loginSuccess } from './auth/authSlice';
 import axios from "axios";
-import { Route,  Routes } from "react-router-dom";
+import { Route,  Routes, useLocation } from "react-router-dom";
 import Login from "./components/Login";
 import { useNavigate } from "react-router-dom";
 import Home from "./components/Home";
@@ -23,7 +23,8 @@ function App() {
   const [loading,setLoading] = useState(true);
 
   const dispatch = useDispatch()
-  const navigate = useNavigate()
+  const navigate = useNavigate();
+  const location = useLocation()
 
   useEffect(() => {
 
@@ -54,7 +55,7 @@ function App() {
   fetchUserDetails();
   },[])
 
-
+  const shouldHideNavbar = location.pathname === "/login" || location.pathname === "/";
 
   return (
     <>
@@ -65,7 +66,7 @@ function App() {
           </>
         ) : (
           <>\
-          <Navbar />
+         {!shouldHideNavbar && <Navbar />}
             <Routes>
               <Route path="/" element={<Register />}/>
               <Route path="/login" element={<Login />}/>
