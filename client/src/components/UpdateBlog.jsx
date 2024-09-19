@@ -59,7 +59,6 @@ const UpdateBlog = () => {
 
   return (
     <>
-    <Navbar />
       <div className='container'>
         <div className="card">
         <h2>Update Blog</h2>

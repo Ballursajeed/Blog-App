@@ -50,46 +50,57 @@ const CreatePost = () => {
   return (
     <>
       <div className='container'>
-        <div className="card">
+      <div className='card'>
         <h2>Post a Blog</h2>
-        <form action="" method='post' onSubmit={submitHandler}>
-           <div className="input">
-             <label htmlFor="title">Title of the Blog:</label>
-             <input type="text" 
-                value={title} 
-                onChange={(e) => setTitle(e.target.value) } 
-                id="title" 
-                placeholder='Enter Title'
-             />
+        <form onSubmit={submitHandler} className="form">
+          <div className="input">
+            <label htmlFor="title">Title of the Blog:</label>
+            <input 
+              type="text" 
+              value={title} 
+              onChange={(e) => setTitle(e.target.value)} 
+              id="title" 
+              placeholder="Enter Title" 
+            />
+          </div>
 
-             <div>Content:</div>
-             <div className="content">
-             <textarea type="text"  
+          <div className="input">
+            <label htmlFor="content">Content:</label>
+            <div className="content">
+              <textarea 
                 value={content} 
-                onChange={(e) => setContent(e.target.value) } 
+                onChange={(e) => setContent(e.target.value)} 
                 id="content" 
-                placeholder='Enter Content'
-             />
-             </div>
- 
-             <label htmlFor="summary">Summary: </label>
-             <input type="text" 
-                value={summary} 
-                onChange={(e) => setSummary(e.target.value) } 
-                id="summary" 
-                placeholder='Enter Summary'/>
-               
-             <div className="img">
-             <label htmlFor="img">Upload Image: </label>
-             <input type="file" 
-                    onChange={(e) => setFile(e.target.files[0])}
-                    id="img" placeholder='Enter Summary'/>  
-             </div>
+                placeholder="Enter Content"
+              />
+            </div>
+          </div>
 
-             <button type='submit'>Submit</button>
-           </div>
+          <div className="input">
+            <label htmlFor="summary">Summary:</label>
+            <input 
+              type="text" 
+              value={summary} 
+              onChange={(e) => setSummary(e.target.value)} 
+              id="summary" 
+              placeholder="Enter Summary"
+            />
+          </div>
+
+          <div className="input img">
+            <label htmlFor="img">Upload Image:</label>
+            <input 
+              type="file" 
+              onChange={(e) => setFile(e.target.files[0])} 
+              id="img" 
+            />
+          </div>
+
+          <div className="button-container">
+            <button type="submit">Submit</button>
+          </div>
         </form>
-        </div> 
+      </div>
     </div>
     </>
   )
