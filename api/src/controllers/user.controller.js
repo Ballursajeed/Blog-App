@@ -22,7 +22,14 @@ const registerUser = async(req,res) => {
                 status: 400,
              })
         }
-
+        const existedUsername = await User.findOne({username});
+    
+        if (existedUsername) {
+            return res.status(400).json({
+                message: "Username is already used by another user",
+                status: 400,
+             })
+        }
 
         let avatarLocalPath;
 
