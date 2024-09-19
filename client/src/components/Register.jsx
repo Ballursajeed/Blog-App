@@ -68,53 +68,68 @@ const Register = () => {
 
   return (
     <div>
-     <div className="container">
-     
+     <div className="registerContainer">
+     <div className='register'>
       <form action="" method='post' onSubmit={submitHandler}>
-        <label htmlFor="fullName">Full Name:</label>
-        <input type="text" 
-               placeholder='Enter Full Name...' 
-               id='fullName' 
-               value={fullName}
-               onChange={(e) => setFullName(e.target.value)}
-        />
+          <div>
+           <label htmlFor="fullName">Full Name:</label>
+           <input type="text" 
+                placeholder='Enter Full Name...' 
+                id='fullName' 
+                value={fullName}
+                onChange={(e) => setFullName(e.target.value)}
+           />
+          </div>
+          <div>
+          <label htmlFor="email">Email:</label>
+                    <input type="text" 
+                          placeholder='Enter Email...' 
+                          id='email' 
+                          value={email}
+                          onChange={(e) => setEmail(e.target.value)}
+                    />
+          </div>
 
-        <label htmlFor="email">Email:</label>
-        <input type="text" 
-               placeholder='Enter Email...' 
-               id='email' 
-               value={email}
-               onChange={(e) => setEmail(e.target.value)}
-        />
+          <div>
+            <label htmlFor="username">Username:</label>
+            <input type="text" 
+                  placeholder='Enter Username...' 
+                  id='username' 
+                  value={username}
+                  onChange={(e) => setUsername(e.target.value)}
+            />
+          </div>
 
-        <label htmlFor="username">Username:</label>
-        <input type="text" 
-               placeholder='Enter Username...' 
-               id='username' 
-               value={username}
-               onChange={(e) => setUsername(e.target.value)}
-        />
+          <div>
+            <label htmlFor="password">Password:</label>
+            <input type="text" 
+                  placeholder='Enter Password...'
+                  id='password' 
+                  value={password}
+                  onChange={(e) => setPassword(e.target.value)}
+            />
+          </div>
 
-        <label htmlFor="password">Password:</label>
-        <input type="text" 
-               placeholder='Enter Password...'
-               id='password' 
-               value={password}
-               onChange={(e) => setPassword(e.target.value)}
-        />
+          <div className='imageUpload'>
+    <label htmlFor='avatar'>Upload Profile Image:</label>
+    <label className="customFileUpload">
+        <span className="uploadIcon">📁 Choose File</span> 
+        <p></p>
+        <input type="file" id="avatar" onChange={(e) => {
+            setFile(e.target.files[0]);
+            document.getElementById('fileName').textContent = e.target.files[0]?.name || "No file chosen";
+        }} />
+    </label>
+    <span id="fileName" className="fileName">No file chosen</span>
+</div>
 
-        <label htmlFor='avatar'>Upload Image:</label>
-        <input type="file"
-               onChange={(e) => setFile(e.target.files[0])}  
-                />
-
-        <button type='submit' className='btn'>Submit</button>
-        <div>
-           <p>Already have an Account?</p>
-           <Link to="/login">Login</Link> 
-        </div>
-      </form>
-
+          <button type='submit' className='btn'>Submit</button>
+          <div>
+            <p>Already have an Account?</p>
+            <Link to="/login">Login</Link> 
+          </div>
+        </form>
+     </div>
      </div>
     </div>
   )
