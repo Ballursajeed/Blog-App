@@ -6,6 +6,8 @@ import { loginStart, loginFailure, loginSuccess, } from '../auth/authSlice';
 import { useDispatch } from 'react-redux';
 import { Link } from 'react-router-dom';
 import { useNavigate } from 'react-router-dom';
+import { ToastContainer, toast } from 'react-toastify';
+import 'react-toastify/dist/ReactToastify.css'; // Import the styles
 
 const Register = () => {
 
@@ -31,33 +33,44 @@ const Register = () => {
             formData.append("avatar",file)
          }
 
-         const res = await axios.post(`${SERVER}/user/register`,formData,{
+         const RegisterRes = await axios.post(`${SERVER}/user/register`,formData,{
             headers: {
                 'Content-Type': 'multipart/form-data',
             }
          })
 
-         console.log(res.data);
          
-         if (res.data.status === 201) {
+         if (RegisterRes.data.status === 201) {
 
               dispatch(loginStart());
 
-            const res = await axios.post(`${SERVER}/user/login`,{
-                username,
-                password
-            }, { withCredentials: true });
+              toast.success('Registered Successfully!', {
+                position: "top-center",
+                autoClose: 3000,
+                hideProgressBar: false,
+                closeOnClick: true,
+                pauseOnHover: true,
+                draggable: true,
+                onClose: async () => {  // Ensure navigation happens after toast closes
+                  // Login request after registration
+                  const loginRes = await axios.post(`${SERVER}/user/login`, {
+                      username,
+                      password
+                  }, { withCredentials: true });
 
-            if (res.data.status === 200) {
-              dispatch(loginSuccess({
-                     user:res.data.user,
-                     token: res.data.refreshToken
-              }))
-            }
-            navigate("/home")
-            console.log(res.data);
+                  if (loginRes.data.status === 200) {
+                    dispatch(loginSuccess({
+                           user: loginRes.data.user,
+                           token: loginRes.data.refreshToken
+                    }));
+
+                    navigate("/home");  // Navigate after successful login
+                    console.log("Login successful:", loginRes.data);
+                  }
+              }
+            })
             
-         }
+          }
       
        } catch (error) {
         console.log(error?.response?.data);
@@ -67,9 +80,11 @@ const Register = () => {
     }
 
   return (
-    <div>
+    <>
+       
      <div className="registerContainer">
      <div className='register'>
+      <h2>Register</h2>
       <form action="" method='post' onSubmit={submitHandler}>
           <div>
            <label htmlFor="fullName">Full Name:</label>
@@ -78,6 +93,7 @@ const Register = () => {
                 id='fullName' 
                 value={fullName}
                 onChange={(e) => setFullName(e.target.value)}
+                required
            />
           </div>
           <div>
@@ -87,6 +103,7 @@ const Register = () => {
                           id='email' 
                           value={email}
                           onChange={(e) => setEmail(e.target.value)}
+                          required
                     />
           </div>
 
@@ -97,6 +114,7 @@ const Register = () => {
                   id='username' 
                   value={username}
                   onChange={(e) => setUsername(e.target.value)}
+                  required
             />
           </div>
 
@@ -107,6 +125,7 @@ const Register = () => {
                   id='password' 
                   value={password}
                   onChange={(e) => setPassword(e.target.value)}
+                  required
             />
           </div>
 
@@ -131,7 +150,8 @@ const Register = () => {
         </form>
      </div>
      </div>
-    </div>
+     <ToastContainer />
+    </>
   )
 }
 

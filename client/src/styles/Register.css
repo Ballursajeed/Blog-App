@@ -1,9 +1,11 @@
+
+
 .registerContainer {
     display: flex;
     align-items: center;
     justify-content: center;
     min-height: 100vh;
-    background: linear-gradient(to right, #6a11cb, #2575fc); /* Gradient background */
+    background: linear-gradient(to right, #6a11cb, #2575fc); 
 }
 
 .register {
@@ -11,7 +13,7 @@
     margin: 10px;
     width: 350px;
     background-color: white;
-    box-shadow: 0 4px 12px rgba(0, 0, 0, 0.1); /* Subtle shadow for better focus */
+    box-shadow: 0 4px 12px rgba(0, 0, 0, 0.1);
     border-radius: 15px;
     text-align: center;
 }
