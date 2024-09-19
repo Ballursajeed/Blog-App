@@ -8,7 +8,8 @@ import { useSelector } from 'react-redux';
 
 const Navbar = () => {
 
-    const navigate = useNavigate()
+    const navigate = useNavigate();
+    const [isOpen, setIsOpen] = useState(false);
 
     const auth = useSelector((state) => state.auth);
     console.log("Auth: ",auth.user);    
@@ -30,41 +31,49 @@ const Navbar = () => {
        
     }
 
+    const toggleMenu = () => {
+      setIsOpen(!isOpen);
+  };
+
   return (
     <nav className="navbar">
-      <div className="logo">
-        <Link >BLOGY</Link>
-      </div>
-      <ul className="nav-links">
-      <li>
-          <Link to="/home">
-           <button className='btn'> Home </button>
-          </Link>
-        </li>
-        <li>
-          <Link to="/post-blog">
-           <button className='btn'> Create a Blog </button>
-          </Link>
-        </li>
-    
-        <li>
-          <Link to="/my-blogs">
-           <button className='btn'>My Blogs</button>
-          </Link>
-        </li>
-        
-        <li>
-          <button className='btn' onClick={logoutHandler}>Logout</button>
-        </li>
-        <li>
-          <Link to="/profile">
-           <button className='avatar'>
-            <img src={auth.user?.avatar ? auth.user.avatar : '/default-profile-image.webp'} alt='P' />
-           </button>
-          </Link>
-        </li>
-      </ul>
-    </nav>
+            <div className="logo">
+                <Link to="/home">BLOGY</Link>
+            </div>
+            <div className="hamburger" onClick={toggleMenu}>
+                {/* Hamburger icon */}
+                <span className={`bar ${isOpen ? "open" : ""}`}></span>
+                <span className={`bar ${isOpen ? "open" : ""}`}></span>
+                <span className={`bar ${isOpen ? "open" : ""}`}></span>
+            </div>
+            <ul className={`nav-links ${isOpen ? "open" : ""}`}>
+                <li>
+                    <Link to="/home">
+                        <button className='btn'> Home </button>
+                    </Link>
+                </li>
+                <li>
+                    <Link to="/post-blog">
+                        <button className='btn'> Create a Blog </button>
+                    </Link>
+                </li>
+                <li>
+                    <Link to="/my-blogs">
+                        <button className='btn'>My Blogs</button>
+                    </Link>
+                </li>
+                <li>
+                    <button className='btn' onClick={logoutHandler}>Logout</button>
+                </li>
+                <li>
+                    <Link to="/profile">
+                        <button className='avatar'>
+                            <img src={auth.user?.avatar ? auth.user.avatar : '/default-profile-image.webp'} alt='P' />
+                        </button>
+                    </Link>
+                </li>
+            </ul>
+        </nav>
   );
 };
 
