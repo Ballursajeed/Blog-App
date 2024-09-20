@@ -4,6 +4,8 @@ import axios from "axios";
 import { SERVER } from '../constants/constants';
 import {  useParams } from 'react-router-dom';
 import { useNavigate } from 'react-router-dom';
+import { ToastContainer, toast } from 'react-toastify';
+import 'react-toastify/dist/ReactToastify.css'; // Import the styles
 
 const EditUser = () => {
 
@@ -25,8 +27,26 @@ const EditUser = () => {
            withCredentials: true
          })
 
+         toast.success('Profile Updated Successfully!', {
+          position: "top-center",
+          autoClose: 3000,
+          hideProgressBar: false,
+          closeOnClick: true,
+          pauseOnHover: true,
+          draggable: true,
+          onClose: true
+        })
+
        } catch (error) {
         console.log(error?.response?.data);
+        toast.error(`${error?.response?.data?.message}`,{
+          position: "top-center",
+                autoClose: 5000,
+                hideProgressBar: false,
+                closeOnClick: true,
+                pauseOnHover: true,
+                draggable: true,
+        })
        }
     }
 
@@ -42,9 +62,27 @@ const EditUser = () => {
                 'Content-Type': 'multipart/form-data',
             }
             })
+
+            toast.success('Profile Image Updated Successfully!', {
+              position: "top-center",
+              autoClose: 3000,
+              hideProgressBar: false,
+              closeOnClick: true,
+              pauseOnHover: true,
+              draggable: true,
+              onClose: true
+            })
    
           } catch (error) {
            console.log(error?.response?.data);
+           toast.error(`${error?.response?.data?.message}`,{
+            position: "top-center",
+                  autoClose: 5000,
+                  hideProgressBar: false,
+                  closeOnClick: true,
+                  pauseOnHover: true,
+                  draggable: true,
+          })
           }
     }
  
@@ -102,6 +140,7 @@ const EditUser = () => {
 
        </div>
      </div>
+     <ToastContainer />
     </div>
   )
 }

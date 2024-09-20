@@ -29,7 +29,9 @@ const ShowLike = ({blog, close}) => {
       <h3>Liked By</h3> 
       <button className='closeButton' onClick={close}>X</button>
       {
-        userDetails.map((user) => <Avatar key={user._id} user = {user.userDetails}/>
+        userDetails.map((user) => {
+           return( <Avatar key={user._id} user = {user.userDetails}/>)
+        }
         )
       }
     </div>

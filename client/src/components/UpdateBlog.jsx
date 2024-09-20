@@ -2,8 +2,9 @@ import React, { useState } from 'react'
 import "../styles/CreatePost.css"
 import axios from 'axios'
 import { SERVER } from '../constants/constants'
-import Navbar from './Navbar'
 import { useParams } from 'react-router-dom'
+import { ToastContainer, toast } from 'react-toastify';
+import 'react-toastify/dist/ReactToastify.css'; // Import the styles
 
 const UpdateBlog = () => {
 
@@ -26,9 +27,27 @@ const UpdateBlog = () => {
           })
  
           console.log("update blog: ",res.data);
+          toast.success('Blog Updated Successfully!', {
+            position: "top-center",
+            autoClose: 3000,
+            hideProgressBar: false,
+            closeOnClick: true,
+            pauseOnHover: true,
+            draggable: true,
+            onClose: true
+          }
+        )
         
         } catch (error) {
          console.log(error?.response?.data);
+         toast.error(`${error?.response?.data?.message}`,{
+          position: "top-center",
+                autoClose: 5000,
+                hideProgressBar: false,
+                closeOnClick: true,
+                pauseOnHover: true,
+                draggable: true,
+        })
         }
      }
 
@@ -49,9 +68,27 @@ const UpdateBlog = () => {
             })
    
             console.log("update Image: ",res.data);
+            toast.success('Image Updated Successfully!', {
+              position: "top-center",
+              autoClose: 3000,
+              hideProgressBar: false,
+              closeOnClick: true,
+              pauseOnHover: true,
+              draggable: true,
+              onClose: true
+            }
+          )
           
           } catch (error) {
            console.log(error?.response?.data);
+           toast.error(`${error?.response?.data?.message}`,{
+            position: "top-center",
+                  autoClose: 5000,
+                  hideProgressBar: false,
+                  closeOnClick: true,
+                  pauseOnHover: true,
+                  draggable: true,
+          })
           }
          
         
@@ -112,7 +149,7 @@ const UpdateBlog = () => {
           </div>
         </div>
       </div>
-   
+      <ToastContainer />
     </>
   )
 }

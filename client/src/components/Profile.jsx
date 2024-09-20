@@ -5,6 +5,8 @@ import { SERVER } from '../constants/constants';
 import axios from 'axios';
 import { useNavigate } from 'react-router-dom';
 import UserBlogs from './UserBlogs';
+import { ToastContainer, toast } from 'react-toastify';
+import 'react-toastify/dist/ReactToastify.css'; // Import the styles
 
 const Profile = () => {
 
@@ -22,14 +24,33 @@ const Profile = () => {
         });
         
         if (res.status === 200) {
-          console.log(res.data);
           // Refresh the page after successful deletion
-          window.location.reload();
+          toast.success('Profile Deleted Successfully!', {
+            position: "top-center",
+            autoClose: 2000,
+            hideProgressBar: false,
+            closeOnClick: true,
+            pauseOnHover: true,
+            draggable: true,
+            onClose: () => {
+              setTimeout(() => { window.location.reload();},1000)
+            window.location.reload();
+            }
+          })
+          
         } else {
           console.error("Failed to delete the blog");
         }
       } catch (error) {
         console.error("Error deleting the blog:", error);
+        toast.error(`${error?.response?.data?.message}`,{
+          position: "top-center",
+                autoClose: 5000,
+                hideProgressBar: false,
+                closeOnClick: true,
+                pauseOnHover: true,
+                draggable: true,
+        })
       }
     }
 
@@ -74,6 +95,7 @@ const Profile = () => {
       }
           </div>
       </div>
+     <ToastContainer />
     </>
   )
 }

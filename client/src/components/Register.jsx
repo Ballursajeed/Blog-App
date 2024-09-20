@@ -149,7 +149,6 @@ const Register = () => {
     </label>
     <span id="fileName" className="fileName">No file chosen</span>
 </div>
-
           <button type='submit' className='btn'>Submit</button>
           <div>
             <p>Already have an Account?</p>
