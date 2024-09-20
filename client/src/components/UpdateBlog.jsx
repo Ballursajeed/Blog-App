@@ -5,6 +5,7 @@ import { SERVER } from '../constants/constants'
 import { useParams } from 'react-router-dom'
 import { ToastContainer, toast } from 'react-toastify';
 import 'react-toastify/dist/ReactToastify.css'; // Import the styles
+import Loading from './Loader'
 
 const UpdateBlog = () => {
 
@@ -13,10 +14,13 @@ const UpdateBlog = () => {
     const [summary, setSummary] = useState('')
     const [file, setFile] = useState()
     const { id } = useParams();
+    const [loading, setLoading] = useState(false);  // Add loading state
+
 
     const submitHandler = async(e) => {
+      e.preventDefault()
+setLoading(true)
         try {
-          e.preventDefault()
          
           const res = await axios.put(`${SERVER}/blog/updateBlog/${id}`,{
             title,
@@ -29,7 +33,7 @@ const UpdateBlog = () => {
           console.log("update blog: ",res.data);
           toast.success('Blog Updated Successfully!', {
             position: "top-center",
-            autoClose: 3000,
+            autoClose: 2000,
             hideProgressBar: false,
             closeOnClick: true,
             pauseOnHover: true,
@@ -48,15 +52,17 @@ const UpdateBlog = () => {
                 pauseOnHover: true,
                 draggable: true,
         })
+        } finally {
+          setLoading(false)
         }
      }
 
      const handleUploadImage = async(e) => {
 
-        
+      e.preventDefault()
+        setLoading(true)
 
         try {
-            e.preventDefault()
             const formData = new FormData();
             formData.append("image",file)
 
@@ -70,7 +76,7 @@ const UpdateBlog = () => {
             console.log("update Image: ",res.data);
             toast.success('Image Updated Successfully!', {
               position: "top-center",
-              autoClose: 3000,
+              autoClose: 2000,
               hideProgressBar: false,
               closeOnClick: true,
               pauseOnHover: true,
@@ -89,6 +95,8 @@ const UpdateBlog = () => {
                   pauseOnHover: true,
                   draggable: true,
           })
+          }finally {
+            setLoading(false)
           }
          
         
@@ -96,7 +104,9 @@ const UpdateBlog = () => {
 
   return (
     <>
-      <div className='container'>
+    {
+      loading ? <Loading /> : <>
+         <div className='container'>
         <div className="card">
           <h2>Update Blog</h2>
           <form onSubmit={submitHandler}>
@@ -149,6 +159,9 @@ const UpdateBlog = () => {
           </div>
         </div>
       </div>
+      </>
+    }
+      
       <ToastContainer />
     </>
   )

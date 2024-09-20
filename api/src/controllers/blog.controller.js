@@ -32,15 +32,18 @@ const postBlog = async(req,res) => {
             title,
             content,
             summary,
-            author,
+            author: author?._id,
             image: image?.url || ""
         })
         
-       const blogs = author.blogs;
-       blogs.push(blog)
-       author.blogs = blogs;
-        author.save({validateBeforeSave: false})
+    //    const blogs = author.blogs;
+    //    blogs.push(blog)
+    //    author.blogs = blogs;
+    //     author.save({validateBeforeSave: false})
         
+        author.blogs.push(blog._id);  // Only store the blog ID
+        await author.save({ validateBeforeSave: false });
+
         res.status(201).json({
             message: "Blog Posted Successfully!",
             status:201,

@@ -4,6 +4,7 @@ import axios from 'axios'
 import { SERVER } from '../constants/constants'
 import { ToastContainer, toast } from 'react-toastify';
 import 'react-toastify/dist/ReactToastify.css'; // Import the styles
+import Loading from './Loader';
 
 const CreatePost = () => {
 
@@ -11,9 +12,10 @@ const CreatePost = () => {
     const [content, setContent] = useState('')
     const [summary, setSummary] = useState('')
     const [file, setFile] = useState()
-
+    const [loading, setLoading] = useState(false);  // Add loading state
 
     const submitHandler = async(e) => {
+      setLoading(true)
         try {
           e.preventDefault()
           const formData = new FormData();
@@ -36,9 +38,14 @@ const CreatePost = () => {
           
           if (res.data.status === 201) {
  
+            setContent('')
+            setSummary('')
+            setTitle('')
+            setFile('')
+
             toast.success('Blog Posted Successfully!', {
               position: "top-center",
-              autoClose: 3000,
+              autoClose: 2000,
               hideProgressBar: false,
               closeOnClick: true,
               pauseOnHover: true,
@@ -59,15 +66,17 @@ const CreatePost = () => {
                 pauseOnHover: true,
                 draggable: true,
         })
-        }
-       
-        
+        } finally {
+          setLoading(false);  // Stop loading after the process completes
+         }
           
      }
 
   return (
     <>
-      <div className='container'>
+    {
+      loading ? <Loading /> : <>
+       <div className='container'>
       <div className='card'>
         <h2>Post a Blog</h2>
         <form onSubmit={submitHandler} className="form">
@@ -122,6 +131,9 @@ const CreatePost = () => {
         </form>
       </div>
     </div>
+       </>
+    }
+      
     <ToastContainer />
     </>
   )

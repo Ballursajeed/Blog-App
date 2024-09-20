@@ -49,7 +49,7 @@ const Register = () => {
 
               toast.success('Registered Successfully!', {
                 position: "top-center",
-                autoClose: 2000,
+                autoClose: 1000,
                 hideProgressBar: false,
                 closeOnClick: true,
                 pauseOnHover: true,

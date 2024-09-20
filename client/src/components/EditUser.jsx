@@ -6,6 +6,7 @@ import {  useParams } from 'react-router-dom';
 import { useNavigate } from 'react-router-dom';
 import { ToastContainer, toast } from 'react-toastify';
 import 'react-toastify/dist/ReactToastify.css'; // Import the styles
+import Loading from './Loader';
 
 const EditUser = () => {
 
@@ -13,13 +14,16 @@ const EditUser = () => {
     const [username, setUsername] = useState('')
     const [fullName, setFullName] = useState('')
     const [file, setFile] = useState()
+    const [loading, setLoading] = useState(false);  // Add loading state
 
     const navigate = useNavigate()
     const { id } = useParams()
 
     const submitHandler = async(e) => {
+      e.preventDefault()
+      setLoading(true)
+
        try {
-         e.preventDefault()
          
          const res = await axios.put(`${SERVER}/user/updateUserInfo/${id}`,{
                  fullName, email, username
@@ -29,7 +33,7 @@ const EditUser = () => {
 
          toast.success('Profile Updated Successfully!', {
           position: "top-center",
-          autoClose: 3000,
+          autoClose: 2000,
           hideProgressBar: false,
           closeOnClick: true,
           pauseOnHover: true,
@@ -47,12 +51,15 @@ const EditUser = () => {
                 pauseOnHover: true,
                 draggable: true,
         })
+       } finally {
+        setLoading(false)
        }
     }
 
     const handleUploadImage = async(e) => {
+      e.preventDefault()
+setLoading(true)
         try {
-            e.preventDefault()
             const formData = new FormData();
             formData.append("avatar",file)
 
@@ -65,7 +72,7 @@ const EditUser = () => {
 
             toast.success('Profile Image Updated Successfully!', {
               position: "top-center",
-              autoClose: 3000,
+              autoClose: 2000,
               hideProgressBar: false,
               closeOnClick: true,
               pauseOnHover: true,
@@ -83,12 +90,16 @@ const EditUser = () => {
                   pauseOnHover: true,
                   draggable: true,
           })
+          } finally {
+            setLoading(false)
           }
     }
  
   return (
     <div>
-     <div className="container">
+      {
+        loading ? <Loading/> : <>
+        <div className="container">
        <div className="register">
        <h2>Update Account Details:</h2>
       <form action="" method='post' onSubmit={submitHandler}>
@@ -140,6 +151,9 @@ const EditUser = () => {
 
        </div>
      </div>
+        </>
+      }
+     
      <ToastContainer />
     </div>
   )
