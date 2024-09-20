@@ -8,17 +8,22 @@ import { Link } from 'react-router-dom';
 import { useNavigate } from 'react-router-dom';
 import { ToastContainer, toast } from 'react-toastify';
 import 'react-toastify/dist/ReactToastify.css'; // Import the styles
+import Loading from './Loader';
 
 const Login = () => {
     const [username, setUsername] = useState('')
     const [password, setPassword] = useState('')
+    const [loading, setLoading] = useState(false);  // Add loading state
+
 
     const dispatch = useDispatch()
     const navigate = useNavigate()
 
     const submitHandler = async(e) => {
+      e.preventDefault()
+      setLoading(true); 
+
        try {
-         e.preventDefault()
          
             dispatch(loginStart());
 
@@ -57,13 +62,17 @@ const Login = () => {
                 pauseOnHover: true,
                 draggable: true,
         })
+       }finally {
+        setLoading(false);  // Stop loading after the process completes
        }
         
     }
 
   return (
     <div>
-     <div className="registerContainer">
+      {
+        loading ? <Loading /> : <>
+           <div className="registerContainer">
      
      <div className="register">
       <h2>Login</h2>
@@ -96,9 +105,10 @@ const Login = () => {
       </form>
      </div>
 
-     
-
      </div>
+        </>
+      }
+    
      <ToastContainer />
     </div>
   )

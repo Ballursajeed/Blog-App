@@ -16,6 +16,7 @@ import UpdateBlog from "./components/UpdateBlog";
 import EditUser from "./components/EditUser";
 import SingleUser from "./components/SingleUser";
 import Navbar from "./components/Navbar";
+import Loading from "./components/Loader";
 
 function App() {
 
@@ -62,7 +63,7 @@ function App() {
      
       { loading ? (
           <>
-           <p>Loading......</p>
+           <Loading />
           </>
         ) : (
           <>\

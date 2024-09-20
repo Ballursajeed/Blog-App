@@ -8,6 +8,7 @@ import { Link } from 'react-router-dom';
 import { useNavigate } from 'react-router-dom';
 import { ToastContainer, toast } from 'react-toastify';
 import 'react-toastify/dist/ReactToastify.css'; // Import the styles
+import Loading from './Loader';
 
 const Register = () => {
 
@@ -16,13 +17,15 @@ const Register = () => {
     const [password, setPassword] = useState('')
     const [fullName, setFullName] = useState('')
     const [file, setFile] = useState()
+    const [loading, setLoading] = useState(false);  // Add loading state
 
     const dispatch = useDispatch()
     const navigate = useNavigate()
 
     const submitHandler = async(e) => {
+      e.preventDefault()
+      setLoading(true); 
        try {
-         e.preventDefault()
          const formData = new FormData();
          formData.append("email",email)
          formData.append("username",username)
@@ -46,7 +49,7 @@ const Register = () => {
 
               toast.success('Registered Successfully!', {
                 position: "top-center",
-                autoClose: 3000,
+                autoClose: 2000,
                 hideProgressBar: false,
                 closeOnClick: true,
                 pauseOnHover: true,
@@ -83,14 +86,17 @@ const Register = () => {
                 pauseOnHover: true,
                 draggable: true,
         })
+       }finally {
+        setLoading(false);  // Stop loading after the process completes
        }
         
     }
 
   return (
     <>
-       
-     <div className="registerContainer">
+       {
+        loading ? <Loading /> : <>
+           <div className="registerContainer">
      <div className='register'>
       <h2>Register</h2>
       <form action="" method='post' onSubmit={submitHandler}>
@@ -157,6 +163,9 @@ const Register = () => {
         </form>
      </div>
      </div>
+        </>
+       }
+    
      <ToastContainer />
     </>
   )
