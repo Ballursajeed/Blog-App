@@ -10,21 +10,15 @@ connectDB()
 
 const app = express()
 const port = process.env.PORT || 3000;
-const allowedOrigins = ['https://blog-app-liart-nine.vercel.app'];
 
 app.use(express.json())
 app.use(cors({
-    origin: function (origin, callback) {
-        if (!origin || allowedOrigins.indexOf(origin) !== -1) {
-            callback(null, true);
-        } else {
-            callback(new Error('Not allowed by CORS'));
-        }
-    },
-    credentials: true,  // Allow cookies and credentials
+    origin: 'https://blog-app-liart-nine.vercel.app',
+    credentials: true,  // Allow cookies and credentials,
     methods: ['GET', 'POST', 'PUT', 'DELETE'],
     allowedHeaders: ['Content-Type', 'Authorization'],
 }));
+    
 app.use(express.urlencoded({ extended: true, limit: "16kb" }))
 app.use(express.static('public'))
 app.use(cookieParser())
