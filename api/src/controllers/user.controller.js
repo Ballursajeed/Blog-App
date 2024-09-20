@@ -31,13 +31,14 @@ const registerUser = async(req,res) => {
              })
         }
 
-        let avatarLocalPath;
 
+        let avatar;
+
+        // Check if the image was uploaded
         if (req.files && Array.isArray(req.files.avatar) && req.files.avatar.length > 0) {
-            avatarLocalPath = req.files.avatar[0].path;
-         }
-
-         const avatar = await uploadOnCloudinary(avatarLocalPath)
+            const fileBuffer = req.files.avatar[0].buffer;
+            avatar = await uploadOnCloudinary(fileBuffer);  // Upload directly from buffer
+        }
 
         const user = await User.create({
             email,
