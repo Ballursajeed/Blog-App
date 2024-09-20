@@ -633,16 +633,13 @@ const updateBlogImage = async(req,res) => {
             })
         }
        
-        const imageLocalPath = req.files?.image[0]?.path;
-    
-        if (!imageLocalPath) {
-            return res.status(400).json({
-                message: "please upload image",
-                status: 400,
-             })
+        let image;
+
+        // Check if the image was uploaded
+        if (req.files && Array.isArray(req.files.image) && req.files.image.length > 0) {
+            const fileBuffer = req.files.image[0].buffer;
+            image = await uploadOnCloudinary(fileBuffer);  // Upload directly from buffer
         }
-    
-        const image = await uploadOnCloudinary(imageLocalPath);
     
         if (!image) {
             return res.status(500).json({
