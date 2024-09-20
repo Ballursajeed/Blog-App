@@ -34,7 +34,7 @@ const registerUser = async(req,res) => {
 
         let avatar;
 
-        // Check if the image was uploaded
+        // Check if an avatar image was uploaded
         if (req.files && Array.isArray(req.files.avatar) && req.files.avatar.length > 0) {
             const fileBuffer = req.files.avatar[0].buffer;
             avatar = await uploadOnCloudinary(fileBuffer);  // Upload directly from buffer
@@ -240,17 +240,13 @@ const updateAvatar = async(req,res) => {
              status: 404
          })
      }
-    
-     const avatarLocalPath = req.files?.avatar[0]?.path;
- 
-     if (!avatarLocalPath) {
-         return res.status(400).json({
-             message: "please upload image",
-             status: 400,
-          })
+     let avatar;
+
+     // Check if an avatar image was uploaded
+     if (req.files && Array.isArray(req.files.avatar) && req.files.avatar.length > 0) {
+         const fileBuffer = req.files.avatar[0].buffer;
+         avatar = await uploadOnCloudinary(fileBuffer);  // Upload directly from buffer
      }
- 
-     const avatar = await uploadOnCloudinary(avatarLocalPath);
  
      if (!avatar) {
          return res.status(500).json({
