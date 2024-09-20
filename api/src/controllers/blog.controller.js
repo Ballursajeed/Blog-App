@@ -18,13 +18,13 @@ const postBlog = async(req,res) => {
             })
         }
       
-        let imagePath;
+        let image;
 
+        // Check if the image was uploaded
         if (req.files && Array.isArray(req.files.image) && req.files.image.length > 0) {
-            imagePath = req.files.image[0].path;
-         }
-
-         const image = await uploadOnCloudinary(imagePath)
+            const fileBuffer = req.files.image[0].buffer;
+            image = await uploadOnCloudinary(fileBuffer);  // Upload directly from buffer
+        }
 
        const author = req.user;
     
@@ -36,19 +36,14 @@ const postBlog = async(req,res) => {
             image: image?.url || ""
         })
         
-    //    const blogs = author.blogs;
-    //    blogs.push(blog)
-    //    author.blogs = blogs;
-    //     author.save({validateBeforeSave: false})
-        
-        author.blogs.push(blog._id);  // Only store the blog ID
+        author.blogs.push(blog._id);
         await author.save({ validateBeforeSave: false });
 
         res.status(201).json({
             message: "Blog Posted Successfully!",
-            status:201,
-            blog
-        })
+            status: 201,
+            blog,
+        });
     } catch (error) {
         return res.status(500).json({
             message: "OOPS!! Something Went Wrong While Posting a Blog!!",
