@@ -12,12 +12,12 @@ const app = express()
 const port = process.env.PORT || 3000;
 
 app.use(express.json())
-app.use(cors(
-    {
-        origin: 'http://localhost:5173', // Replace with your React app's URL
-        credentials: true,
-    }
-));
+app.use(cors({
+    origin: ['http://localhost:5173', 'https://blog-app-server-i3mm.onrender.com'], // Add both local and production origins
+    credentials: true,  // Allow credentials (cookies)
+    methods: ['GET', 'POST', 'PUT', 'DELETE'],  // Allow necessary methods
+    allowedHeaders: ['Content-Type', 'Authorization'],  // Allow specific headers
+}));
 app.use(express.urlencoded({ extended: true, limit: "16kb" }))
 app.use(express.static('public'))
 app.use(cookieParser())
