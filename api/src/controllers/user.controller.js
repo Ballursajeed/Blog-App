@@ -109,7 +109,6 @@ const loginUser = async(req,res) => {
              path: '/',
              httpOnly: true,  
              maxAge: 7 * 24 * 60 * 60 * 1000,
-             domain: '.vercel.app'
            }
     
         res.status(200)
