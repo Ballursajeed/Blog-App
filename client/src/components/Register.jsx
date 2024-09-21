@@ -68,7 +68,6 @@ const Register = () => {
                     }));
 
                     navigate("/home");  // Navigate after successful login
-                    console.log("Login successful:", loginRes.data);
                   }
               }
             })

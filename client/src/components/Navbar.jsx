@@ -12,7 +12,6 @@ const Navbar = () => {
     const [isOpen, setIsOpen] = useState(false);
 
     const auth = useSelector((state) => state.auth);
-    console.log("Auth: ",auth.user);    
 
     const logoutHandler = async(e) => {
         e.preventDefault();

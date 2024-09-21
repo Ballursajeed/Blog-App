@@ -13,7 +13,6 @@ const GetBlogs = () => {
             const res = await axios.get(`${SERVER}/blog/getAllBlogs`,{
                 withCredentials: true
               });
-              console.log(res.data.blogs);
               setBlogs(res.data.blogs)
         }
      getBlogs()

@@ -30,7 +30,6 @@ setLoading(true)
             withCredentials: true,
           })
  
-          console.log("update blog: ",res.data);
           toast.success('Blog Updated Successfully!', {
             position: "top-center",
             autoClose: 2000,
@@ -43,7 +42,6 @@ setLoading(true)
         )
         
         } catch (error) {
-         console.log(error?.response?.data);
          toast.error(`${error?.response?.data?.message}`,{
           position: "top-center",
                 autoClose: 5000,
@@ -73,7 +71,6 @@ setLoading(true)
             }
             })
    
-            console.log("update Image: ",res.data);
             toast.success('Image Updated Successfully!', {
               position: "top-center",
               autoClose: 2000,
@@ -86,7 +83,6 @@ setLoading(true)
           )
           
           } catch (error) {
-           console.log(error?.response?.data);
            toast.error(`${error?.response?.data?.message}`,{
             position: "top-center",
                   autoClose: 5000,

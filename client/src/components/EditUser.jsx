@@ -81,7 +81,6 @@ setLoading(true)
             })
    
           } catch (error) {
-           console.log(error?.response?.data);
            toast.error(`${error?.response?.data?.message}`,{
             position: "top-center",
                   autoClose: 5000,

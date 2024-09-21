@@ -37,14 +37,12 @@ const Comments = ({ blog, close }) => {
         }
     };
 
-    console.log(comments);
     
 
     const handleDelete = async(id) => {
           const res = await axios.delete(`${SERVER}/blog/deleteComment/${id}`,{
             withCredentials: true
           });
-          console.log(res.data);
           setComments(comments.filter((comment) => comment._id !== id ))
     }
 

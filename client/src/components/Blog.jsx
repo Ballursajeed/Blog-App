@@ -113,7 +113,6 @@ const Blog = ({
         shorterContent.push(word)
       }
      
-      console.log("Content of the blog: ",shorterContent.length, shorterContent.join(' '));
       
 
   return (

@@ -25,7 +25,6 @@ const SingleBlog = () => {
         getSingleBlog()
     },[])
 
-    console.log("blog:  ",blog);
     
 
   return (

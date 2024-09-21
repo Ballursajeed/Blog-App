@@ -20,7 +20,6 @@ const SingleUser = () => {
         })
         
         if (res.data?.status === 200) {
-            console.log(res.data);
             
             setUser(res.data?.user)
          }
@@ -29,7 +28,6 @@ const SingleUser = () => {
         const res = await axios.get(`${SERVER}/blog/getUserBlog/${id}`,{
             withCredentials: true
           });
-          console.log(res.data.blogs);
           setBlogs(res.data.blogs)
     }
     getSingleUser()
@@ -39,7 +37,6 @@ const SingleUser = () => {
 
     
 
-    console.log("single User:",user);
     
 
   return (

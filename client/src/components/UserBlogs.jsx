@@ -111,7 +111,6 @@ const UserBlogs = ({
         shorterContent.push(word)
       }
      
-      console.log("Content of the blog: ",shorterContent.length, shorterContent.join(' '));
       
       const admin = blog?.author === auth.user?._id;
 
