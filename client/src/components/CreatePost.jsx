@@ -51,12 +51,11 @@ const CreatePost = () => {
               closeOnClick: true,
               pauseOnHover: true,
               draggable: true,
-              onClose: true
+              onClose: () => {
+                navigate("/my-blogs")
+              }
             }
           )
-
-          navigate("/my-blogs")
-             
           }
        
         } catch (error) {
