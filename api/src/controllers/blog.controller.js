@@ -549,6 +549,7 @@ const getBlogLikes = async(req,res) => {
                     "userDetails.fullName": 1, // Select specific fields
                     "userDetails.username": 1,
                     "userDetails.avatar": 1,
+                    "userDetails._id":1
                 }
             }
         ]);
