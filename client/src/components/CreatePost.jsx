@@ -5,6 +5,7 @@ import { SERVER } from '../constants/constants'
 import { ToastContainer, toast } from 'react-toastify';
 import 'react-toastify/dist/ReactToastify.css'; // Import the styles
 import Loading from './Loader';
+import { useNavigate } from 'react-router-dom';
 
 const CreatePost = () => {
 
@@ -12,7 +13,8 @@ const CreatePost = () => {
     const [content, setContent] = useState('')
     const [summary, setSummary] = useState('')
     const [file, setFile] = useState()
-    const [loading, setLoading] = useState(false);  // Add loading state
+    const [loading, setLoading] = useState(false);  
+    const navigate = useNavigate()
 
     const submitHandler = async(e) => {
       setLoading(true)
@@ -34,7 +36,6 @@ const CreatePost = () => {
              }
           })
  
-          console.log(res.data);
           
           if (res.data.status === 201) {
  
@@ -53,6 +54,8 @@ const CreatePost = () => {
               onClose: true
             }
           )
+
+          navigate("/my-blogs")
              
           }
        
