@@ -57,7 +57,7 @@ const CreatePost = () => {
           }
        
         } catch (error) {
-         console.log(error?.response?.data);
+         console.log(error?.response);
          toast.error(`${error?.response?.data?.message}`,{
           position: "top-center",
                 autoClose: 5000,
