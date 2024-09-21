@@ -151,26 +151,23 @@ const getUserBlog = async(req,res) => {
         })
     }
 
-   const blogs = [];
+   const blogs = await Blog.find({
+    _id: { $in: blogsIds },
+  })
+    .sort({ createdAt: -1 }) // Sort by createdAt in descending order (most recent first)
+    .lean();
  
-   for (let i = 0; i < blogsIds.length; i++) {
-      const id = blogsIds[i];
-      const blog = await Blog.findById({
-         _id: id
-      }).lean() 
-     blogs.push(blog)    
-   }
-
-   let blogsWithUser = []
+   
+   let blogsWithUser = [];
    for (let i = 0; i < blogs.length; i++) {
-       let blog = blogs[i];
-       let user = {};
-       if (blog?.author) {
-         user = await User.findById({_id: blog?.author});
-         blog.user = user;
-         blogsWithUser.push(blog);
-       }
-   }        
+     let blog = blogs[i];
+     let user = {};
+     if (blog?.author) {
+       user = await User.findById(blog.author).lean(); // Fetch the author details
+       blog.user = user;
+       blogsWithUser.push(blog);
+     }
+   }
  
    res.status(200).json({
     message:"Fetched User's Blogs!",
@@ -581,26 +578,23 @@ const getMyBlogs = async(req,res) => {
         })
     }
 
-   const blogs = [];
- 
-   for (let i = 0; i < blogsIds.length; i++) {
-      const id = blogsIds[i];
-      const blog = await Blog.findById({
-         _id: id
-      }).lean() 
-     blogs.push(blog)    
-   }
-
-   let blogsWithUser = []
-   for (let i = 0; i < blogs.length; i++) {
-       let blog = blogs[i];
-       let user = {};
-       if (blog?.author) {
-         user = await User.findById({_id: blog?.author});
-         blog.user = user;
-         blogsWithUser.push(blog);
-       }
-   }        
+    const blogs = await Blog.find({
+        _id: { $in: blogsIds },
+      })
+        .sort({ createdAt: -1 }) // Sort by createdAt in descending order (most recent first)
+        .lean();
+     
+       
+       let blogsWithUser = [];
+       for (let i = 0; i < blogs.length; i++) {
+         let blog = blogs[i];
+         let user = {};
+         if (blog?.author) {
+           user = await User.findById(blog.author).lean();
+           blog.user = user;
+           blogsWithUser.push(blog);
+         }
+       }      
  
  
    res.status(200).json({
