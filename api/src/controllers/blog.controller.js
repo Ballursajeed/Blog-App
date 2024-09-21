@@ -58,7 +58,7 @@ const postBlog = async(req,res) => {
 const getAllBlogs = async(req,res) => {
     try {
         
-        const blogs = await Blog.find({}).lean();
+        const blogs = await Blog.find({}).sort({ createdAt: -1 }).lean();
         
         let blogsWithUser = []
         for (let i = 0; i < blogs.length; i++) {
