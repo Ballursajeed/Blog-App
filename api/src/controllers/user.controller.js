@@ -104,7 +104,6 @@ const loginUser = async(req,res) => {
         await user.save({ validateBeforeSave: false })
       
         const option = {
-            httpOnly: true,
             secure: true,
             sameSite: 'None',
              path: '/'
