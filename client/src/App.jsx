@@ -66,7 +66,7 @@ function App() {
            <Loading />
           </>
         ) : (
-          <>\
+          <>
          {!shouldHideNavbar && <Navbar />}
             <Routes>
               <Route path="/" element={<Register />}/>
