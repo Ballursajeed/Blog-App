@@ -2,8 +2,6 @@ import axios from 'axios';
 import React, { useEffect, useState } from 'react'
 import { useParams } from 'react-router-dom'
 import { SERVER } from '../constants/constants';
-import Navbar from './Navbar';
-import Blog from './Blog';
 import "../styles/Single-User.css"
 import UserBlogs from './UserBlogs';
 
